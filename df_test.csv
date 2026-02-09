@@ -1,0 +1,170 @@
+,images,labels,classes,class-num,image_shape,image_size
+0,distal-humerus-fracture-1_jpg.rf.831cb137cfcbde1079f86abd5f5f2867.jpg,distal-humerus-fracture-1_jpg.rf.831cb137cfcbde1079f86abd5f5f2867.txt,humerus,4,"(2048, 801, 3)",4921344
+1,image1_0_png.rf.99862308d714bff3f9c410adf5ca93ac.jpg,image1_0_png.rf.99862308d714bff3f9c410adf5ca93ac.txt,humerus,4,"(379, 512, 3)",582144
+2,image1_1000_png.rf.a53c5e186c03961bf88075c6e3e94cf6.jpg,image1_1000_png.rf.a53c5e186c03961bf88075c6e3e94cf6.txt,humerus,4,"(420, 512, 3)",645120
+3,image1_1015_png.rf.3b7320c3c40771fa5532bf713a728b83.jpg,image1_1015_png.rf.3b7320c3c40771fa5532bf713a728b83.txt,humerus,4,"(425, 512, 3)",652800
+4,image1_1015_png.rf.9181f8eb07451331e22381bacb3a5bd2.jpg,image1_1015_png.rf.9181f8eb07451331e22381bacb3a5bd2.txt,humerus,4,"(512, 497, 3)",763392
+5,image1_1033_png.rf.4bbf6560a26646b1d3a1ab600aa19251.jpg,image1_1033_png.rf.4bbf6560a26646b1d3a1ab600aa19251.txt,humerus,4,"(406, 512, 3)",623616
+6,image1_1035_png.rf.d7493a5653bc3628f7a1b1ec0eb5de85.jpg,image1_1035_png.rf.d7493a5653bc3628f7a1b1ec0eb5de85.txt,humerus,4,"(512, 420, 3)",645120
+7,image1_1044_png.rf.1e17d3a8637036ef4b3e1c5d0b88011f.jpg,image1_1044_png.rf.1e17d3a8637036ef4b3e1c5d0b88011f.txt,humerus,4,"(512, 335, 3)",514560
+8,image1_1057_png.rf.dbd0e857728d8b149e5732cb2824d819.jpg,image1_1057_png.rf.dbd0e857728d8b149e5732cb2824d819.txt,humerus,4,"(512, 420, 3)",645120
+9,image1_1070_png.rf.d01735eab2c774146e40eef6c8e7b661.jpg,image1_1070_png.rf.d01735eab2c774146e40eef6c8e7b661.txt,humerus,4,"(512, 384, 3)",589824
+10,image1_1084_png.rf.d9da08b77872f6b4282f2700d216b9b3.jpg,image1_1084_png.rf.d9da08b77872f6b4282f2700d216b9b3.txt,humerus,4,"(512, 509, 3)",781824
+11,image1_1101_png.rf.76b621303ad7da308e79a2e39d860675.jpg,image1_1101_png.rf.76b621303ad7da308e79a2e39d860675.txt,forearm fracture,2,"(512, 379, 3)",582144
+12,image1_1126_png.rf.66c21ce21ee255ed4bdc66164bac87c5.jpg,image1_1126_png.rf.66c21ce21ee255ed4bdc66164bac87c5.txt,forearm fracture,2,"(419, 512, 3)",643584
+13,image1_1134_png.rf.642f46a1f0f794f24f5aa3edcf58bdcf.jpg,image1_1134_png.rf.642f46a1f0f794f24f5aa3edcf58bdcf.txt,humerus,4,"(512, 229, 3)",351744
+14,image1_1137_png.rf.fd851f5a4b2be36de41c54ec6a53c989.jpg,image1_1137_png.rf.fd851f5a4b2be36de41c54ec6a53c989.txt,humerus,4,"(406, 512, 3)",623616
+15,image1_1175_png.rf.aad108f3739e48313c773ad1392a8966.jpg,image1_1175_png.rf.aad108f3739e48313c773ad1392a8966.txt,humerus,4,"(512, 443, 3)",680448
+16,image1_117_png.rf.e200e6b84f70bd27ba1e1123d052755e.jpg,image1_117_png.rf.e200e6b84f70bd27ba1e1123d052755e.txt,humerus,4,"(379, 512, 3)",582144
+17,image1_1233_png.rf.4e2b7dc04a17f7f3a33a343e8f7ee67e.jpg,image1_1233_png.rf.4e2b7dc04a17f7f3a33a343e8f7ee67e.txt,humerus,4,"(406, 512, 3)",623616
+18,image1_125_png.rf.0025d3a37097e5e1e913d6b36f38df9a.jpg,image1_125_png.rf.0025d3a37097e5e1e913d6b36f38df9a.txt,humerus,4,"(512, 512, 3)",786432
+19,image1_1284_png.rf.45c8239cf68c001ba91d7d002729eec7.jpg,image1_1284_png.rf.45c8239cf68c001ba91d7d002729eec7.txt,humerus,4,"(512, 406, 3)",623616
+20,image1_12_png.rf.5f6971023573ad4a240a4e4c4dae0e5f.jpg,image1_12_png.rf.5f6971023573ad4a240a4e4c4dae0e5f.txt,humerus,4,"(512, 512, 3)",786432
+21,image1_1311_png.rf.27646e931562cc3823c79f79472b8749.jpg,image1_1311_png.rf.27646e931562cc3823c79f79472b8749.txt,forearm fracture,2,"(412, 512, 3)",632832
+22,image1_1326_png.rf.6019c7e15df84d9d6286932d03e687b6.jpg,image1_1326_png.rf.6019c7e15df84d9d6286932d03e687b6.txt,forearm fracture,2,"(253, 512, 3)",388608
+23,image1_1359_png.rf.7475a35f950cea14d8dcd975042229b2.jpg,image1_1359_png.rf.7475a35f950cea14d8dcd975042229b2.txt,fingers positive,1,"(415, 512, 3)",637440
+24,image1_1365_png.rf.588432cc594787268e4d4e7bdf4bb240.jpg,image1_1365_png.rf.588432cc594787268e4d4e7bdf4bb240.txt,fingers positive,1,"(512, 409, 3)",628224
+25,image1_137_png.rf.996f3c880689913494b8c7baae7a6f0d.jpg,image1_137_png.rf.996f3c880689913494b8c7baae7a6f0d.txt,fingers positive,1,"(480, 512, 3)",737280
+26,image1_1392_png.rf.692d8594c2ce39483af8c3c4fee91646.jpg,image1_1392_png.rf.692d8594c2ce39483af8c3c4fee91646.txt,fingers positive,1,"(512, 173, 3)",265728
+27,image1_145_png.rf.a69d928d011a93d25a95b7b8380ea25d.jpg,image1_145_png.rf.a69d928d011a93d25a95b7b8380ea25d.txt,shoulder fracture,5,"(512, 270, 3)",414720
+28,image1_1471_png.rf.3ba297237985853fdf9e2c9f79f07f1d.jpg,image1_1471_png.rf.3ba297237985853fdf9e2c9f79f07f1d.txt,shoulder fracture,5,"(512, 469, 3)",720384
+29,image1_148_png.rf.b9799a5fddd2b4b2b747dc5c49f1643f.jpg,image1_148_png.rf.b9799a5fddd2b4b2b747dc5c49f1643f.txt,shoulder fracture,5,"(512, 379, 3)",582144
+30,image1_152_png.rf.f6e7109e7499a7a20e4fc8c0940603d3.jpg,image1_152_png.rf.f6e7109e7499a7a20e4fc8c0940603d3.txt,shoulder fracture,5,"(512, 353, 3)",542208
+31,image1_1545_png.rf.cd2ce2cc69004944f0d920c4bda34592.jpg,image1_1545_png.rf.cd2ce2cc69004944f0d920c4bda34592.txt,shoulder fracture,5,"(512, 342, 3)",525312
+32,image1_154_png.rf.bf5cc83ea60cb0fd21d1f21ab7055f9d.jpg,image1_154_png.rf.bf5cc83ea60cb0fd21d1f21ab7055f9d.txt,fingers positive,1,"(512, 424, 3)",651264
+33,image1_1553_png.rf.ec209f9a8e0e7a41b30a1683a4574f00.jpg,image1_1553_png.rf.ec209f9a8e0e7a41b30a1683a4574f00.txt,fingers positive,1,"(512, 406, 3)",623616
+34,image1_1563_png.rf.4d5bc124b48e7d4d2636d2d6691e36f2.jpg,image1_1563_png.rf.4d5bc124b48e7d4d2636d2d6691e36f2.txt,shoulder fracture,5,"(382, 512, 3)",586752
+35,image1_1588_png.rf.aba29f401dee4db13fc5434f3c0186b4.jpg,image1_1588_png.rf.aba29f401dee4db13fc5434f3c0186b4.txt,shoulder fracture,5,"(512, 406, 3)",623616
+36,image1_164_png.rf.ed315410a29883c298454af69f3ae895.jpg,image1_164_png.rf.ed315410a29883c298454af69f3ae895.txt,shoulder fracture,5,"(406, 512, 3)",623616
+37,image1_1682_png.rf.8c3d0845adaa6d884f90b3a020573069.jpg,image1_1682_png.rf.8c3d0845adaa6d884f90b3a020573069.txt,shoulder fracture,5,"(512, 487, 3)",748032
+38,image1_1741_png.rf.abfab4411413ca60310f9787db4d8d83.jpg,image1_1741_png.rf.abfab4411413ca60310f9787db4d8d83.txt,shoulder fracture,5,"(406, 512, 3)",623616
+39,image1_1796_png.rf.42413ce321f53b714fc52ffa1d1a2021.jpg,image1_1796_png.rf.42413ce321f53b714fc52ffa1d1a2021.txt,shoulder fracture,5,"(503, 512, 3)",772608
+40,image1_1813_png.rf.36e36804ccd3bc72b0fc02d36029d08f.jpg,image1_1813_png.rf.36e36804ccd3bc72b0fc02d36029d08f.txt,shoulder fracture,5,"(512, 343, 3)",526848
+41,image1_182_png.rf.c9539857a1608ea4850d37195ff767ce.jpg,image1_182_png.rf.c9539857a1608ea4850d37195ff767ce.txt,shoulder fracture,5,"(512, 512, 3)",786432
+42,image1_184_png.rf.e493197224b25d2fe8234345382fb4b9.jpg,image1_184_png.rf.e493197224b25d2fe8234345382fb4b9.txt,shoulder fracture,5,"(512, 459, 3)",705024
+43,image1_186_png.rf.e7ef27f31171ef062f867a9043ecb879.jpg,image1_186_png.rf.e7ef27f31171ef062f867a9043ecb879.txt,shoulder fracture,5,"(512, 262, 3)",402432
+44,image1_189_png.rf.9fe16c915039954baf6675c96b2bacc6.jpg,image1_189_png.rf.9fe16c915039954baf6675c96b2bacc6.txt,shoulder fracture,5,"(512, 420, 3)",645120
+45,image1_1981_png.rf.05106dc3354a8d2c4292cacd2813aae1.jpg,image1_1981_png.rf.05106dc3354a8d2c4292cacd2813aae1.txt,shoulder fracture,5,"(512, 406, 3)",623616
+46,image1_1_png.rf.ff3f4a12a8e46a9a9aecace2ebf3869a.jpg,image1_1_png.rf.ff3f4a12a8e46a9a9aecace2ebf3869a.txt,shoulder fracture,5,"(512, 420, 3)",645120
+47,image1_211_png.rf.e1fd0ca40a197d13f9ecae59c4074d43.jpg,image1_211_png.rf.e1fd0ca40a197d13f9ecae59c4074d43.txt,shoulder fracture,5,"(512, 406, 3)",623616
+48,image1_2128_png.rf.9cdb5d69b7f964d77ef2cd8ddaa64b3d.jpg,image1_2128_png.rf.9cdb5d69b7f964d77ef2cd8ddaa64b3d.txt,shoulder fracture,5,"(375, 512, 3)",576000
+49,image1_212_png.rf.2ffb29b8c57630c49b7ee34bce2c46f3.jpg,image1_212_png.rf.2ffb29b8c57630c49b7ee34bce2c46f3.txt,shoulder fracture,5,"(512, 512, 3)",786432
+50,image1_2157_png.rf.37cf76e910103b2aa83a2c925849f300.jpg,image1_2157_png.rf.37cf76e910103b2aa83a2c925849f300.txt,shoulder fracture,5,"(512, 406, 3)",623616
+51,image1_2207_png.rf.826e33db891514f1a14c23ece2273e7e.jpg,image1_2207_png.rf.826e33db891514f1a14c23ece2273e7e.txt,shoulder fracture,5,"(512, 406, 3)",623616
+52,image1_2263_png.rf.43688af1368a72ad0bc6719a5dcab20b.jpg,image1_2263_png.rf.43688af1368a72ad0bc6719a5dcab20b.txt,shoulder fracture,5,"(512, 472, 3)",724992
+53,image1_22_png.rf.bb53a5b5275a858894f501512908f07a.jpg,image1_22_png.rf.bb53a5b5275a858894f501512908f07a.txt,shoulder fracture,5,"(512, 271, 3)",416256
+54,image1_230_png.rf.f2a3605e418617cb313976daaec78e18.jpg,image1_230_png.rf.f2a3605e418617cb313976daaec78e18.txt,shoulder fracture,5,"(512, 420, 3)",645120
+55,image1_2336_png.rf.76087ca1e6263ce05700b7e1f92b9f02.jpg,image1_2336_png.rf.76087ca1e6263ce05700b7e1f92b9f02.txt,shoulder fracture,5,"(406, 512, 3)",623616
+56,image1_23_png.rf.da8bbef32848f32a8d5434e328b10428.jpg,image1_23_png.rf.da8bbef32848f32a8d5434e328b10428.txt,elbow positive,0,"(406, 512, 3)",623616
+57,image1_240_png.rf.c8b0cfb57aef2e4bc78d5a716909fd94.jpg,image1_240_png.rf.c8b0cfb57aef2e4bc78d5a716909fd94.txt,elbow positive,0,"(512, 407, 3)",625152
+58,image1_241_png.rf.9429a19b000ff9abd6339900245fb1ba.jpg,image1_241_png.rf.9429a19b000ff9abd6339900245fb1ba.txt,elbow positive,0,"(512, 132, 3)",202752
+59,image1_252_png.rf.81a8e63687d8630d28257570bd5fcd80.jpg,image1_252_png.rf.81a8e63687d8630d28257570bd5fcd80.txt,elbow positive,0,"(512, 405, 3)",622080
+60,image1_258_png.rf.7d64b6239897f6838c97b4d18d6ed0c9.jpg,image1_258_png.rf.7d64b6239897f6838c97b4d18d6ed0c9.txt,elbow positive,0,"(512, 260, 3)",399360
+61,image1_2600_png.rf.01b17c4166e1ea6a863191eebfff35ae.jpg,image1_2600_png.rf.01b17c4166e1ea6a863191eebfff35ae.txt,elbow positive,0,"(512, 406, 3)",623616
+62,image1_268_png.rf.00406f976b1bd6c978e828d2c5085683.jpg,image1_268_png.rf.00406f976b1bd6c978e828d2c5085683.txt,wrist positive,6,"(512, 420, 3)",645120
+63,image1_2694_png.rf.6390e595cb681c436da1dfa7b2c78dfd.jpg,image1_2694_png.rf.6390e595cb681c436da1dfa7b2c78dfd.txt,wrist positive,6,"(512, 406, 3)",623616
+64,image1_26_png.rf.ea3697c11878702d0b7728d240e2eb75.jpg,image1_26_png.rf.ea3697c11878702d0b7728d240e2eb75.txt,fingers positive,1,"(244, 512, 3)",374784
+65,image1_273_png.rf.b2d75c97ef473f97c7077eb114856b2a.jpg,image1_273_png.rf.b2d75c97ef473f97c7077eb114856b2a.txt,fingers positive,1,"(512, 406, 3)",623616
+66,image1_2794_png.rf.6b3aeafbe8917839f42840a597349a32.jpg,image1_2794_png.rf.6b3aeafbe8917839f42840a597349a32.txt,fingers positive,1,"(512, 406, 3)",623616
+67,image1_279_png.rf.b40ab0fc72a8fff98daa57979d24b206.jpg,image1_279_png.rf.b40ab0fc72a8fff98daa57979d24b206.txt,fingers positive,1,"(512, 406, 3)",623616
+68,image1_2818_png.rf.3ef0c89fed24793069ef7828f4978ab4.jpg,image1_2818_png.rf.3ef0c89fed24793069ef7828f4978ab4.txt,fingers positive,1,"(512, 410, 3)",629760
+69,image1_283_png.rf.f41cf5bd6aa70a2216bb701856df9e03.jpg,image1_283_png.rf.f41cf5bd6aa70a2216bb701856df9e03.txt,fingers positive,1,"(425, 512, 3)",652800
+70,image1_291_png.rf.c5a2f62a6316d1ebd9f91cb85ed65891.jpg,image1_291_png.rf.c5a2f62a6316d1ebd9f91cb85ed65891.txt,fingers positive,1,"(425, 512, 3)",652800
+71,image1_2959_png.rf.87b65aa9e9d80f284ae39c06d2892e6e.jpg,image1_2959_png.rf.87b65aa9e9d80f284ae39c06d2892e6e.txt,fingers positive,1,"(512, 286, 3)",439296
+72,image1_300_png.rf.68c69212cc50665b9c1ffa7dd4eb25a4.jpg,image1_300_png.rf.68c69212cc50665b9c1ffa7dd4eb25a4.txt,fingers positive,1,"(512, 489, 3)",751104
+73,image1_302_png.rf.dc3856686e28e1ff95efc721c7cda455.jpg,image1_302_png.rf.dc3856686e28e1ff95efc721c7cda455.txt,fingers positive,1,"(406, 512, 3)",623616
+74,image1_3054_png.rf.4be16ac99458914b4a34d0892e5f7ff0.jpg,image1_3054_png.rf.4be16ac99458914b4a34d0892e5f7ff0.txt,fingers positive,1,"(512, 406, 3)",623616
+75,image1_3073_png.rf.241285b7d595353800440e6d2b9b91f0.jpg,image1_3073_png.rf.241285b7d595353800440e6d2b9b91f0.txt,shoulder fracture,5,"(512, 323, 3)",496128
+76,image1_314_png.rf.870abcb0b0922e63bd5ba9389a1efd74.jpg,image1_314_png.rf.870abcb0b0922e63bd5ba9389a1efd74.txt,shoulder fracture,5,"(512, 406, 3)",623616
+77,image1_3167_png.rf.e97086c7a649e081f8b3ebdd6b27fd2f.jpg,image1_3167_png.rf.e97086c7a649e081f8b3ebdd6b27fd2f.txt,shoulder fracture,5,"(512, 406, 3)",623616
+78,image1_3221_png.rf.5fb071486cc85c923cd8350b22ad6ee7.jpg,image1_3221_png.rf.5fb071486cc85c923cd8350b22ad6ee7.txt,shoulder fracture,5,"(512, 260, 3)",399360
+79,image1_327_png.rf.f8494f574a1ebe492bf514a9504da0a1.jpg,image1_327_png.rf.f8494f574a1ebe492bf514a9504da0a1.txt,shoulder fracture,5,"(512, 420, 3)",645120
+80,image1_3368_png.rf.074f5f9364ab5534a1e1285ad13e5e0b.jpg,image1_3368_png.rf.074f5f9364ab5534a1e1285ad13e5e0b.txt,shoulder fracture,5,"(512, 407, 3)",625152
+81,image1_336_png.rf.f758673053df7ac6e05b8671c2563062.jpg,image1_336_png.rf.f758673053df7ac6e05b8671c2563062.txt,fingers positive,1,"(416, 512, 3)",638976
+82,image1_3374_png.rf.c13f2204d119c696615bdfeb960e7748.jpg,image1_3374_png.rf.c13f2204d119c696615bdfeb960e7748.txt,fingers positive,1,"(512, 256, 3)",393216
+83,image1_338_png.rf.617385aa69fa890a370a37684bae944f.jpg,image1_338_png.rf.617385aa69fa890a370a37684bae944f.txt,fingers positive,1,"(512, 379, 3)",582144
+84,image1_33_png.rf.c1c24340e753b63b6f4e5079b8ef474d.jpg,image1_33_png.rf.c1c24340e753b63b6f4e5079b8ef474d.txt,elbow positive,0,"(512, 382, 3)",586752
+85,image1_340_png.rf.82476241970da952e6e27b1a9c43bef8.jpg,image1_340_png.rf.82476241970da952e6e27b1a9c43bef8.txt,elbow positive,0,"(512, 379, 3)",582144
+86,image1_3413_png.rf.d18ceb5ede7d864fef838167eae65120.jpg,image1_3413_png.rf.d18ceb5ede7d864fef838167eae65120.txt,elbow positive,0,"(406, 512, 3)",623616
+87,image1_344_png.rf.d52b5bab514fb7cfb568da05594a6404.jpg,image1_344_png.rf.d52b5bab514fb7cfb568da05594a6404.txt,elbow positive,0,"(512, 199, 3)",305664
+88,image1_350_png.rf.32b20b275bdbf30afb13d8d585da2743.jpg,image1_350_png.rf.32b20b275bdbf30afb13d8d585da2743.txt,elbow positive,0,"(512, 420, 3)",645120
+89,image1_354_png.rf.4fafa55e4596998cceb97af05c87b38d.jpg,image1_354_png.rf.4fafa55e4596998cceb97af05c87b38d.txt,elbow positive,0,"(512, 420, 3)",645120
+90,image1_355_png.rf.ae0f59ff3c26334cf587c5e76cc18b67.jpg,image1_355_png.rf.ae0f59ff3c26334cf587c5e76cc18b67.txt,elbow positive,0,"(512, 420, 3)",645120
+91,image1_3565_png.rf.52153ba946f07810b3c16f62d202db16.jpg,image1_3565_png.rf.52153ba946f07810b3c16f62d202db16.txt,elbow positive,0,"(337, 512, 3)",517632
+92,image1_358_png.rf.ae461871b8aa93ee2b62c42d61ada754.jpg,image1_358_png.rf.ae461871b8aa93ee2b62c42d61ada754.txt,elbow positive,0,"(512, 354, 3)",543744
+93,image1_3620_png.rf.484267b719f5e17f04fecfe359aff37d.jpg,image1_3620_png.rf.484267b719f5e17f04fecfe359aff37d.txt,elbow positive,0,"(512, 243, 3)",373248
+94,image1_3726_png.rf.2876d2f0108b5a9fb5c23e8fb95f4625.jpg,image1_3726_png.rf.2876d2f0108b5a9fb5c23e8fb95f4625.txt,fingers positive,1,"(512, 206, 3)",316416
+95,image1_3739_png.rf.378cc67dc76f5d423a65e397d699fa37.jpg,image1_3739_png.rf.378cc67dc76f5d423a65e397d699fa37.txt,fingers positive,1,"(512, 136, 3)",208896
+96,image1_375_png.rf.309ea11b65edee9329ae91a338bcefe9.jpg,image1_375_png.rf.309ea11b65edee9329ae91a338bcefe9.txt,fingers positive,1,"(512, 205, 3)",314880
+97,image1_37_png.rf.bda84ad18e135a15c25ffd40bd55567f.jpg,image1_37_png.rf.bda84ad18e135a15c25ffd40bd55567f.txt,fingers positive,1,"(512, 499, 3)",766464
+98,image1_388_png.rf.b1fe6ed17e0c06f51058539841f1a51c.jpg,image1_388_png.rf.b1fe6ed17e0c06f51058539841f1a51c.txt,fingers positive,1,"(512, 405, 3)",622080
+99,image1_3914_png.rf.d8e6ab2b78990092b7856255dd9726b7.jpg,image1_3914_png.rf.d8e6ab2b78990092b7856255dd9726b7.txt,elbow positive,0,"(420, 512, 3)",645120
+100,image1_391_png.rf.0b615525b5dec73ed6871c657bfded04.jpg,image1_391_png.rf.0b615525b5dec73ed6871c657bfded04.txt,fingers positive,1,"(512, 313, 3)",480768
+101,image1_4007_png.rf.5c5b46eb5afec1aecfd8ec0119476889.jpg,image1_4007_png.rf.5c5b46eb5afec1aecfd8ec0119476889.txt,fingers positive,1,"(512, 124, 3)",190464
+102,image1_4097_png.rf.5579812fd38a497fbfeabe584564ffaf.jpg,image1_4097_png.rf.5579812fd38a497fbfeabe584564ffaf.txt,fingers positive,1,"(512, 406, 3)",623616
+103,image1_40_png.rf.3404b7671f39e7295097dd6dabb28a97.jpg,image1_40_png.rf.3404b7671f39e7295097dd6dabb28a97.txt,elbow positive,0,"(512, 490, 3)",752640
+104,image1_416_png.rf.4aaadbb2bfef18ef419564a862caa457.jpg,image1_416_png.rf.4aaadbb2bfef18ef419564a862caa457.txt,elbow positive,0,"(420, 512, 3)",645120
+105,image1_4300_png.rf.d4626ae6c3183d2419faae148cd72283.jpg,image1_4300_png.rf.d4626ae6c3183d2419faae148cd72283.txt,elbow positive,0,"(512, 322, 3)",494592
+106,image1_432_png.rf.f040d366cb944d4ab64b58825db1fedc.jpg,image1_432_png.rf.f040d366cb944d4ab64b58825db1fedc.txt,fingers positive,1,"(473, 512, 3)",726528
+107,image1_437_png.rf.fc6edfb87d799f751a64d540952739cc.jpg,image1_437_png.rf.fc6edfb87d799f751a64d540952739cc.txt,fingers positive,1,"(512, 240, 3)",368640
+108,image1_43_png.rf.9757e6d0c648b4544e9043ccc8fb31ca.jpg,image1_43_png.rf.9757e6d0c648b4544e9043ccc8fb31ca.txt,fingers positive,1,"(512, 407, 3)",625152
+109,image1_448_png.rf.70f487675effb06da9c6c334b5fe29cc.jpg,image1_448_png.rf.70f487675effb06da9c6c334b5fe29cc.txt,fingers positive,1,"(512, 379, 3)",582144
+110,image1_4498_png.rf.36adec7c0d9bacf95faf5c87d28dfbe7.jpg,image1_4498_png.rf.36adec7c0d9bacf95faf5c87d28dfbe7.txt,fingers positive,1,"(512, 470, 3)",721920
+111,image1_4499_png.rf.8ed6bcadb4b1266886b392db6f1f1da2.jpg,image1_4499_png.rf.8ed6bcadb4b1266886b392db6f1f1da2.txt,fingers positive,1,"(512, 155, 3)",238080
+112,image1_450_png.rf.c1640af9f113b3690185c7b22e1d76ec.jpg,image1_450_png.rf.c1640af9f113b3690185c7b22e1d76ec.txt,fingers positive,1,"(512, 406, 3)",623616
+113,image1_4521_png.rf.9d460c80d2b830fc35b17c628a6d6290.jpg,image1_4521_png.rf.9d460c80d2b830fc35b17c628a6d6290.txt,fingers positive,1,"(512, 119, 3)",182784
+114,image1_454_png.rf.3dd6c4b175031818178433bd945d2af9.jpg,image1_454_png.rf.3dd6c4b175031818178433bd945d2af9.txt,shoulder fracture,5,"(512, 420, 3)",645120
+115,image1_462_png.rf.1af786d0d41cd4ddc775694d50a5189d.jpg,image1_462_png.rf.1af786d0d41cd4ddc775694d50a5189d.txt,shoulder fracture,5,"(512, 181, 3)",278016
+116,image1_467_png.rf.b1cc6164190c9fbf10f622b0f06fc115.jpg,image1_467_png.rf.b1cc6164190c9fbf10f622b0f06fc115.txt,shoulder fracture,5,"(512, 420, 3)",645120
+117,image1_486_png.rf.57d8fa147cc2e2f6e7fb6067b94fdd17.jpg,image1_486_png.rf.57d8fa147cc2e2f6e7fb6067b94fdd17.txt,shoulder fracture,5,"(512, 379, 3)",582144
+118,image1_4966_png.rf.27ae131adff1063f606ceecb0fddc7c2.jpg,image1_4966_png.rf.27ae131adff1063f606ceecb0fddc7c2.txt,shoulder fracture,5,"(512, 409, 3)",628224
+119,image1_496_png.rf.be69c35487b2531b272b242febfdebb1.jpg,image1_496_png.rf.be69c35487b2531b272b242febfdebb1.txt,humerus,4,"(512, 481, 3)",738816
+120,image1_497_png.rf.d6769296bd5c7ac8218ae363a5dc3968.jpg,image1_497_png.rf.d6769296bd5c7ac8218ae363a5dc3968.txt,humerus,4,"(512, 283, 3)",434688
+121,image1_508_png.rf.63f80ba9eca75737d7435b9122d70288.jpg,image1_508_png.rf.63f80ba9eca75737d7435b9122d70288.txt,humerus,4,"(512, 420, 3)",645120
+122,image1_509_png.rf.4b918f154cece667f6fe4ec2e676eaf1.jpg,image1_509_png.rf.4b918f154cece667f6fe4ec2e676eaf1.txt,humerus,4,"(406, 512, 3)",623616
+123,image1_511_png.rf.9e17ffe27582ff4724db0edbc22118ba.jpg,image1_511_png.rf.9e17ffe27582ff4724db0edbc22118ba.txt,humerus,4,"(406, 512, 3)",623616
+124,image1_51_png.rf.56172f90bd654dcc6cc4ac47f79988a2.jpg,image1_51_png.rf.56172f90bd654dcc6cc4ac47f79988a2.txt,humerus,4,"(406, 512, 3)",623616
+125,image1_52_png.rf.b194877235d291ca9e2e8824392bf776.jpg,image1_52_png.rf.b194877235d291ca9e2e8824392bf776.txt,humerus,4,"(512, 420, 3)",645120
+126,image1_536_png.rf.20bf7f571e4badd6d76c3a8894575eb7.jpg,image1_536_png.rf.20bf7f571e4badd6d76c3a8894575eb7.txt,humerus,4,"(512, 420, 3)",645120
+127,image1_537_png.rf.06ee5106226a244e50fa61450224633b.jpg,image1_537_png.rf.06ee5106226a244e50fa61450224633b.txt,humerus,4,"(512, 430, 3)",660480
+128,image1_540_png.rf.0e3e26d67bb471fb263c983cdf758c46.jpg,image1_540_png.rf.0e3e26d67bb471fb263c983cdf758c46.txt,humerus,4,"(406, 512, 3)",623616
+129,image1_5740_png.rf.9e24e104e841b740e0389637d5e6d2d7.jpg,image1_5740_png.rf.9e24e104e841b740e0389637d5e6d2d7.txt,humerus,4,"(420, 512, 3)",645120
+130,image1_594_png.rf.08dd02caad7756ae235e1ff58a0205b6.jpg,image1_594_png.rf.08dd02caad7756ae235e1ff58a0205b6.txt,humerus,4,"(512, 325, 3)",499200
+131,image1_6234_png.rf.564f9903c116204416868f0a2273e6ba.jpg,image1_6234_png.rf.564f9903c116204416868f0a2273e6ba.txt,shoulder fracture,5,"(512, 454, 3)",697344
+132,image1_623_png.rf.056fad4c4c1c2381cdabf35f947ab1bb.jpg,image1_623_png.rf.056fad4c4c1c2381cdabf35f947ab1bb.txt,shoulder fracture,5,"(512, 424, 3)",651264
+133,image1_62_png.rf.49b4ef3c363843b800174d2fdfc56ee8.jpg,image1_62_png.rf.49b4ef3c363843b800174d2fdfc56ee8.txt,shoulder fracture,5,"(512, 406, 3)",623616
+134,image1_633_png.rf.9bd74183541bd851e79f94d3f07c50d6.jpg,image1_633_png.rf.9bd74183541bd851e79f94d3f07c50d6.txt,shoulder fracture,5,"(406, 512, 3)",623616
+135,image1_635_png.rf.87aa3f97aeaffa79004761ae1f895cac.jpg,image1_635_png.rf.87aa3f97aeaffa79004761ae1f895cac.txt,shoulder fracture,5,"(512, 389, 3)",597504
+136,image1_637_png.rf.750d1e44edbbb461c9505f1d9c0e4a02.jpg,image1_637_png.rf.750d1e44edbbb461c9505f1d9c0e4a02.txt,shoulder fracture,5,"(512, 485, 3)",744960
+137,image1_639_png.rf.915590376683dad767046b536acd3b19.jpg,image1_639_png.rf.915590376683dad767046b536acd3b19.txt,shoulder fracture,5,"(512, 178, 3)",273408
+138,image1_645_png.rf.402f6afd337e508ac75cc56d0ecf912c.jpg,image1_645_png.rf.402f6afd337e508ac75cc56d0ecf912c.txt,shoulder fracture,5,"(512, 424, 3)",651264
+139,image1_6478_png.rf.eee144dfa7e8712592f7d8b10523e2fa.jpg,image1_6478_png.rf.eee144dfa7e8712592f7d8b10523e2fa.txt,shoulder fracture,5,"(512, 407, 3)",625152
+140,image1_651_png.rf.c3391a5ae823bf5de28ed36b3f23f93a.jpg,image1_651_png.rf.c3391a5ae823bf5de28ed36b3f23f93a.txt,shoulder fracture,5,"(512, 336, 3)",516096
+141,image1_663_png.rf.460908c550b08162d5553b1073c8495c.jpg,image1_663_png.rf.460908c550b08162d5553b1073c8495c.txt,shoulder fracture,5,"(512, 420, 3)",645120
+142,image1_670_png.rf.da8ddaaa5ef3e99f8da51b6664740aa4.jpg,image1_670_png.rf.da8ddaaa5ef3e99f8da51b6664740aa4.txt,shoulder fracture,5,"(512, 406, 3)",623616
+143,image1_673_png.rf.fbe0dea2deaf75d49f079ca7d33abe14.jpg,image1_673_png.rf.fbe0dea2deaf75d49f079ca7d33abe14.txt,shoulder fracture,5,"(512, 299, 3)",459264
+144,image1_674_png.rf.9c85436fb6b27fc193107ee487555959.jpg,image1_674_png.rf.9c85436fb6b27fc193107ee487555959.txt,shoulder fracture,5,"(512, 411, 3)",631296
+145,image1_68_png.rf.9e3dfa26e497af0a8f676a9686fd0e20.jpg,image1_68_png.rf.9e3dfa26e497af0a8f676a9686fd0e20.txt,shoulder fracture,5,"(512, 406, 3)",623616
+146,image1_6973_png.rf.6a71f376e7ce54b8e8d484d17e699596.jpg,image1_6973_png.rf.6a71f376e7ce54b8e8d484d17e699596.txt,shoulder fracture,5,"(512, 387, 3)",594432
+147,image1_704_png.rf.e3668d404753b933e1fd9500e697ca8c.jpg,image1_704_png.rf.e3668d404753b933e1fd9500e697ca8c.txt,shoulder fracture,5,"(410, 512, 3)",629760
+148,image1_726_png.rf.d196dd48429681a19051d39b968f3fb0.jpg,image1_726_png.rf.d196dd48429681a19051d39b968f3fb0.txt,shoulder fracture,5,"(512, 510, 3)",783360
+149,image1_745_png.rf.4e5bc3fc5e483e6cc01963dd3d591550.jpg,image1_745_png.rf.4e5bc3fc5e483e6cc01963dd3d591550.txt,shoulder fracture,5,"(512, 367, 3)",563712
+150,image1_8002_png.rf.3b1d55e198fdcd09f808da01429ee7c7.jpg,image1_8002_png.rf.3b1d55e198fdcd09f808da01429ee7c7.txt,shoulder fracture,5,"(512, 409, 3)",628224
+151,image1_848_png.rf.029e1130bf23b22edbf687ed6b1902ed.jpg,image1_848_png.rf.029e1130bf23b22edbf687ed6b1902ed.txt,forearm fracture,2,"(512, 159, 3)",244224
+152,image1_852_png.rf.b721589a516459f110ab073a190f3f0f.jpg,image1_852_png.rf.b721589a516459f110ab073a190f3f0f.txt,forearm fracture,2,"(293, 512, 3)",450048
+153,image1_860_png.rf.37fd7f57d0b9ec38eafafceacdbd4f4c.jpg,image1_860_png.rf.37fd7f57d0b9ec38eafafceacdbd4f4c.txt,forearm fracture,2,"(512, 279, 3)",428544
+154,image1_92_png.rf.108b5397d94ff8c3c87cc885247ef603.jpg,image1_92_png.rf.108b5397d94ff8c3c87cc885247ef603.txt,forearm fracture,2,"(512, 219, 3)",336384
+155,image1_9_png.rf.063293a5d91155202c1ec5f03dd1170b.jpg,image1_9_png.rf.063293a5d91155202c1ec5f03dd1170b.txt,forearm fracture,2,"(512, 421, 3)",646656
+156,image2_1421_png.rf.b623cea6c9617fcf2f09843434e25218.jpg,image2_1421_png.rf.b623cea6c9617fcf2f09843434e25218.txt,forearm fracture,2,"(317, 512, 3)",486912
+157,image2_1540_png.rf.46ec2cd9f9775a6e815e5062658d9fb0.jpg,image2_1540_png.rf.46ec2cd9f9775a6e815e5062658d9fb0.txt,forearm fracture,2,"(512, 424, 3)",651264
+158,image2_1718_png.rf.3320525501293fd17921dbca2ec70ebf.jpg,image2_1718_png.rf.3320525501293fd17921dbca2ec70ebf.txt,forearm fracture,2,"(420, 512, 3)",645120
+159,image2_1758_png.rf.be01737bb3e65525d2fcac4a9814624f.jpg,image2_1758_png.rf.be01737bb3e65525d2fcac4a9814624f.txt,forearm fracture,2,"(420, 512, 3)",645120
+160,image2_176_png.rf.87231f93e98596a5a1b52ef2fd5a7871.jpg,image2_176_png.rf.87231f93e98596a5a1b52ef2fd5a7871.txt,humerus,4,"(512, 420, 3)",645120
+161,image2_199_png.rf.111ecddb2bdc3542d7f953385d1bb03b.jpg,image2_199_png.rf.111ecddb2bdc3542d7f953385d1bb03b.txt,humerus,4,"(512, 376, 3)",577536
+162,image2_232_png.rf.66b26e2592f806b3b659538ae42a2e74.jpg,image2_232_png.rf.66b26e2592f806b3b659538ae42a2e74.txt,humerus,4,"(512, 512, 3)",786432
+163,image2_636_png.rf.3a27fb8f5d5892ce33733630521b1e3d.jpg,image2_636_png.rf.3a27fb8f5d5892ce33733630521b1e3d.txt,humerus,4,"(429, 512, 3)",658944
+164,image2_641_png.rf.ca0bfddb8b5ac5e97fa841e32c94ad9a.jpg,image2_641_png.rf.ca0bfddb8b5ac5e97fa841e32c94ad9a.txt,humerus,4,"(349, 512, 3)",536064
+165,image2_698_png.rf.66b6d614653eed2ef4e81695aca5c5a6.jpg,image2_698_png.rf.66b6d614653eed2ef4e81695aca5c5a6.txt,forearm fracture,2,"(406, 512, 3)",623616
+166,image2_812_png.rf.cfcd3189eb853066fc4819ad746775a6.jpg,image2_812_png.rf.cfcd3189eb853066fc4819ad746775a6.txt,forearm fracture,2,"(217, 512, 3)",333312
+167,image2_849_png.rf.761ec251e358a15e08cdad95fd41492a.jpg,image2_849_png.rf.761ec251e358a15e08cdad95fd41492a.txt,forearm fracture,2,"(160, 512, 3)",245760
+168,image2_953_png.rf.97a41890b4badde45bfc390f9f5c9d12.jpg,image2_953_png.rf.97a41890b4badde45bfc390f9f5c9d12.txt,forearm fracture,2,"(512, 420, 3)",645120

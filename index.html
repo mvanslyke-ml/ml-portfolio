@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael Van Slyke - ML Engineer & Data Scientist</title>
+    <meta name="description" content="Machine Learning Engineer and Data Scientist specializing in deploying production-ready ML models on AWS infrastructure.">
+    <meta name="keywords" content="machine learning, data science, AWS, deep learning, AI, portfolio">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Particle effect -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">ml_portfolio</div>
+            <ul>
+                <li><a href="#about">about</a></li>
+                <li><a href="#projects">projects</a></li>
+                <li><a href="#skills">skills</a></li>
+                <li><a href="#contact">contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">🤖 ML ENGINEER | DATA SCIENTIST</div>
+                <h1>Michael Van Slyke</h1>
+                <h2><span class="typing">Building intelligent systems</span></h2>
+                <p>
+                    Transforming complex data into actionable insights through machine learning, 
+                    deep learning, and advanced analytics. Specializing in deploying production-ready 
+                    ML models on AWS infrastructure.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="https://github.com/mvanslyke" class="btn btn-secondary" target="_blank">GitHub →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="container">
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">ML Models Deployed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Avg Model Accuracy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50M+</div>
+                <div class="stat-label">Predictions Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3</div>
+                <div class="stat-label">AWS Certifications</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"># PORTFOLIO</div>
+                <h2>Featured Projects</h2>
+                <p class="section-description">
+                    End-to-end machine learning projects from research to production deployment
+                </p>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Projects</button>
+                <button class="filter-tab" data-filter="ml">Machine Learning</button>
+                <button class="filter-tab" data-filter="nlp">NLP</button>
+                <button class="filter-tab" data-filter="cv">Computer Vision</button>
+                <button class="filter-tab" data-filter="deploy">Production Deployed</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Projects will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag"># EXPERTISE</div>
+                <h2>Technical Skills</h2>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Machine Learning</h3>
+                    <ul class="skill-list">
+                        <li>Scikit-learn <span class="skill-bar" style="--skill-level: 95%"></span></li>
+                        <li>TensorFlow <span class="skill-bar" style="--skill-level: 90%"></span></li>
+                        <li>PyTorch <span class="skill-bar" style="--skill-level: 90%"></span></li>
+                        <li>XGBoost / LightGBM <span class="skill-bar" style="--skill-level: 85%"></span></li>
+                        <li>Keras <span class="skill-bar" style="--skill-level: 88%"></span></li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Data Science</h3>
+                    <ul class="skill-list">
+                        <li>Python <span class="skill-bar" style="--skill-level: 95%"></span></li>
+                        <li>Pandas / NumPy <span class="skill-bar" style="--skill-level: 95%"></span></li>
+                        <li>SQL <span class="skill-bar" style="--skill-level: 90%"></span></li>
+                        <li>Spark / PySpark <span class="skill-bar" style="--skill-level: 80%"></span></li>
+                        <li>R <span class="skill-bar" style="--skill-level: 75%"></span></li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>AWS & MLOps</h3>
+                    <ul class="skill-list">
+                        <li>AWS Lambda <span class="skill-bar" style="--skill-level: 90%"></span></li>
+                        <li>SageMaker <span class="skill-bar" style="--skill-level: 85%"></span></li>
+                        <li>EC2 / S3 / CloudFront <span class="skill-bar" style="--skill-level: 90%"></span></li>
+                        <li>Docker <span class="skill-bar" style="--skill-level: 88%"></span></li>
+                        <li>MLflow / DVC <span class="skill-bar" style="--skill-level: 82%"></span></li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Specializations</h3>
+                    <ul class="skill-list">
+                        <li>NLP / Transformers <span class="skill-bar" style="--skill-level: 88%"></span></li>
+                        <li>Computer Vision <span class="skill-bar" style="--skill-level: 85%"></span></li>
+                        <li>Time Series <span class="skill-bar" style="--skill-level: 87%"></span></li>
+                        <li>Deep Learning <span class="skill-bar" style="--skill-level: 90%"></span></li>
+                        <li>Model Optimization <span class="skill-bar" style="--skill-level: 85%"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="section-tag"># CONTACT</div>
+                <h2>Let's Connect</h2>
+                <p class="section-description">
+                    Open to ML engineering roles, consulting opportunities, and collaborations
+                </p>
+
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <a href="mailto:michael@mvanslyke-ml.com">michael@mvanslyke-ml.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">💼</div>
+                        <h3>LinkedIn</h3>
+                        <a href="https://linkedin.com/in/michaelvanslyke" target="_blank">Connect with me</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">🔗</div>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/mvanslyke" target="_blank">@mvanslyke</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Michael Van Slyke | Built with Python, AWS Lambda, and passion for ML</p>
+        </div>
+    </footer>
+
+    <!-- ML Demo Modal -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Live ML Demo</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="demo-interface">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                        INPUT DATA
+                    </label>
+                    <textarea 
+                        id="demoInput" 
+                        class="demo-input" 
+                        rows="4" 
+                        placeholder="Enter your input here..."></textarea>
+                    
+                    <button class="btn btn-primary" onclick="runDemo()" style="width: 100%;">
+                        Run Prediction
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                        MODEL OUTPUT
+                    </label>
+                    <div id="demoOutput" class="demo-output">
+Awaiting prediction...
+                    </div>
+                </div>
+
+                <div style="padding: 1rem; background: rgba(0, 217, 255, 0.05); border: 1px solid var(--border);">
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">
+                        <strong style="color: var(--accent);">ℹ️ About this model:</strong>
+                        <span id="modalDescription">Model description will appear here</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

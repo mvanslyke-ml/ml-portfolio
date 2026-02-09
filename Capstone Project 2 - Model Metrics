@@ -1,0 +1,5 @@
+Model Selection: Faster RCNN with ResNet50 Backbone
+Activation layers: Cross Entropy & Intersection over Union
+Final Loss: 0.114
+Cross Entropy: PENDING
+IoU: PENDING
