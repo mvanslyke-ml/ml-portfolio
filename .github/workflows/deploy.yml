@@ -44,7 +44,7 @@ jobs:
         python scripts/update_api_gateway.py
     
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lambda-deployment
         path: .build/
@@ -79,7 +79,7 @@ jobs:
         python scripts/generate_projects.py
     
     - name: Upload website artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: website-files
         path: website/
