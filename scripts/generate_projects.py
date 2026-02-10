@@ -230,8 +230,14 @@ def markdown_to_project(md_file):
     
     if metrics:
         project['metrics'] = metrics
+    
+    # GitHub URL - auto-generate if not provided in frontmatter
     if frontmatter.get('github'):
         project['github'] = frontmatter['github']
+    else:
+        # Auto-generate URL to project directory in monorepo
+        project['github'] = f"https://github.com/mvanslyke-ml/ml-portfolio/projects/{project_id}"
+    
     if demo_url:
         project['demo_url'] = demo_url
         project['demo_description'] = frontmatter.get('demo_description', f"Live demo of {frontmatter['title']}")
