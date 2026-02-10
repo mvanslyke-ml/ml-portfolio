@@ -3,8 +3,8 @@ title: AI-Powered Bone Fracture Detection
 date: Feb 2026
 category: ml, cv, deploy
 tags: Deep Learning, Computer Vision, PyTorch, Faster R-CNN, Medical AI, LIVE
-github: https://github.com/mvanslyke/bone-fracture-detection
-demo_url: https://huggingface.co/spaces/mvanslyke/bone-fracture-detection
+github: https://github.com/mvanslyke-ml/ml-portfolio/projects/bone-fracture-detection
+demo_url: https://mvanslyke-ml.com/demos/bone-fracture-detection
 demo_description: Upload an X-ray image to detect and localize bone fractures with bounding boxes
 article: https://mvanslyke-ml.com/blog/bone-fracture-detection
 metrics:
