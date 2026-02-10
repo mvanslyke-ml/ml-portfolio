@@ -56,19 +56,19 @@
     <div class="container">
         <div class="stats">
             <div class="stat-item">
-                <div class="stat-number">3+</div>
+                <div class="stat-number">15+</div>
                 <div class="stat-label">ML Models Deployed</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">89%</div>
+                <div class="stat-number">95%</div>
                 <div class="stat-label">Avg Model Accuracy</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">1000+</div>
+                <div class="stat-number">50M+</div>
                 <div class="stat-label">Predictions Served</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">1</div>
+                <div class="stat-number">3</div>
                 <div class="stat-label">AWS Certifications</div>
             </div>
         </div>
@@ -169,17 +169,17 @@
                     <div class="contact-card">
                         <div class="contact-icon">📧</div>
                         <h3>Email</h3>
-                        <a href="mailto:mvanslyke0219@gmail.com">mvanslyke0219@gmail.com</a>
+                        <a href="/cdn-cgi/l/email-protection#365b5f555e57535a765b405758455a4f5d531b5b5a1855595b"><span class="__cf_email__" data-cfemail="3c51555f545d59507c514a5d524f50455759115150125f5351">[email&#160;protected]</span></a>
                     </div>
                     <div class="contact-card">
                         <div class="contact-icon">💼</div>
                         <h3>LinkedIn</h3>
-                        <a href="https://www.linkedin.com/in/michaeljvanslyke-datascientist/" target="_blank">Connect with me</a>
+                        <a href="https://linkedin.com/in/michaelvanslyke" target="_blank">Connect with me</a>
                     </div>
                     <div class="contact-card">
                         <div class="contact-icon">🔗</div>
                         <h3>GitHub</h3>
-                        <a href="https://github.com/mvanslyke-ml/" target="_blank">@mvanslyke</a>
+                        <a href="https://github.com/mvanslyke" target="_blank">@mvanslyke</a>
                     </div>
                 </div>
             </div>
@@ -202,16 +202,19 @@
             </div>
             <div class="modal-body">
                 <div class="demo-interface">
-                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
-                        INPUT DATA
-                    </label>
-                    <textarea 
-                        id="demoInput" 
-                        class="demo-input" 
-                        rows="4" 
-                        placeholder="Enter your input here..."></textarea>
+                    <div id="demoInputContainer">
+                        <!-- Input type will be dynamically inserted here based on model type -->
+                        <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                            INPUT DATA
+                        </label>
+                        <textarea 
+                            id="demoInput" 
+                            class="demo-input" 
+                            rows="4" 
+                            placeholder="Enter your input here..."></textarea>
+                    </div>
                     
-                    <button class="btn btn-primary" onclick="runDemo()" style="width: 100%;">
+                    <button class="btn btn-primary" onclick="runDemo()" style="width: 100%; margin-top: 1rem;">
                         Run Prediction
                     </button>
                 </div>
@@ -229,13 +232,4 @@ Awaiting prediction...
                     <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">
                         <strong style="color: var(--accent);">ℹ️ About this model:</strong>
                         <span id="modalDescription">Model description will appear here</span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="app.js"></script>
-</body>
-</html>
+                    <

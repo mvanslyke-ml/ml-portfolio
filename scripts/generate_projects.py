@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Auto-generate projects.json from Markdown Blog Posts
-Converts markdown files in projects/ directory to portfolio entries
+AND create HTML blog posts from markdown files
 """
 
 import json
@@ -11,8 +11,18 @@ from datetime import datetime
 import yaml
 import sys
 
+try:
+    import markdown
+    from markdown.extensions import fenced_code, tables, toc
+except ImportError:
+    print("Installing markdown...")
+    import subprocess
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'markdown', '--quiet'])
+    import markdown
+
 PROJECTS_DIR = Path('projects')
 OUTPUT_FILE = Path('website/projects.json')
+BLOG_OUTPUT_DIR = Path('website/blog')
 BUILD_DIR = Path('.build')
 
 def parse_frontmatter(content):
@@ -35,15 +45,12 @@ def extract_metrics_from_markdown(body):
     """Extract metrics from markdown tables or sections"""
     metrics = {}
     
-    # Look for metrics in markdown tables
-    # Format: | Metric | Value |
     table_pattern = r'\|\s*([^|]+)\s*\|\s*([^|]+)\s*\|'
     matches = re.findall(table_pattern, body)
     
     for key, value in matches:
         key = key.strip()
         value = value.strip()
-        # Skip table headers and separators
         if key.lower() not in ['metric', 'name', 'key'] and value.lower() not in ['value', '-', '--', '---']:
             metrics[key] = value
     
@@ -51,11 +58,107 @@ def extract_metrics_from_markdown(body):
 
 def generate_project_id(title):
     """Generate URL-safe project ID from title"""
-    # Convert to lowercase, replace spaces with hyphens, remove special chars
     project_id = title.lower()
     project_id = re.sub(r'[^\w\s-]', '', project_id)
     project_id = re.sub(r'[-\s]+', '-', project_id)
     return project_id
+
+def markdown_to_html(md_content, title, frontmatter):
+    """Convert markdown to styled HTML blog post"""
+    
+    md = markdown.Markdown(extensions=['fenced_code', 'tables', 'toc', 'nl2br', 'sane_lists'])
+    body_html = md.convert(md_content)
+    
+    html_template = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title} | ML Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {{
+            --primary: #0A0E27;
+            --secondary: #1A1F3A;
+            --accent: #00D9FF;
+            --purple: #B794F6;
+            --green: #00FF88;
+            --text: #E8EEF2;
+            --text-muted: #8B95A5;
+            --border: rgba(0, 217, 255, 0.2);
+            --code-bg: #0D1117;
+        }}
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{ font-family: 'Sora', sans-serif; background: var(--primary); color: var(--text); line-height: 1.8; padding: 2rem; }}
+        .container {{ max-width: 900px; margin: 0 auto; background: var(--secondary); padding: 3rem; border: 1px solid var(--border); }}
+        .back-link {{ display: inline-block; color: var(--accent); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 2rem; transition: all 0.3s ease; }}
+        .back-link:hover {{ text-shadow: 0 0 10px var(--accent); }}
+        .back-link::before {{ content: '← '; }}
+        h1 {{ font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent); }}
+        .meta {{ display: flex; gap: 2rem; margin-bottom: 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted); }}
+        .tags {{ display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }}
+        .tag {{ padding: 0.4rem 0.8rem; background: rgba(0, 217, 255, 0.1); color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; border: 1px solid rgba(0, 217, 255, 0.3); }}
+        .content {{ font-size: 1.05rem; line-height: 1.9; }}
+        .content h2 {{ font-size: 2rem; margin: 2.5rem 0 1rem 0; color: var(--accent); }}
+        .content h3 {{ font-size: 1.5rem; margin: 2rem 0 1rem 0; color: var(--purple); }}
+        .content p {{ margin-bottom: 1.5rem; }}
+        .content ul, .content ol {{ margin: 1.5rem 0 1.5rem 2rem; }}
+        .content li {{ margin-bottom: 0.75rem; }}
+        .content code {{ background: var(--code-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; color: var(--green); }}
+        .content pre {{ background: var(--code-bg); padding: 1.5rem; border-radius: 4px; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); }}
+        .content pre code {{ background: none; padding: 0; color: var(--text); }}
+        .content table {{ width: 100%; border-collapse: collapse; margin: 1.5rem 0; }}
+        .content table th, .content table td {{ padding: 1rem; border: 1px solid var(--border); text-align: left; }}
+        .content table th {{ background: var(--code-bg); color: var(--accent); font-weight: 600; }}
+        .content a {{ color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s ease; }}
+        .content a:hover {{ border-bottom-color: var(--accent); }}
+        .content blockquote {{ border-left: 4px solid var(--accent); padding-left: 1.5rem; margin: 1.5rem 0; color: var(--text-muted); font-style: italic; }}
+        .content img {{ max-width: 100%; height: auto; display: block; margin: 2rem auto; border: 1px solid var(--border); border-radius: 4px; }}
+        .project-links {{ display: flex; gap: 1rem; margin: 3rem 0; flex-wrap: wrap; }}
+        .project-link {{ padding: 1rem 2rem; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; border: 1px solid var(--border); color: var(--text); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }}
+        .project-link:hover {{ border-color: var(--accent); color: var(--accent); background: rgba(0, 217, 255, 0.05); }}
+        .project-link.demo {{ background: rgba(0, 255, 136, 0.1); border-color: var(--green); color: var(--green); }}
+        .project-link.demo:hover {{ background: rgba(0, 255, 136, 0.2); }}
+        @media (max-width: 768px) {{ body {{ padding: 1rem; }} .container {{ padding: 1.5rem; }} h1 {{ font-size: 2rem; }} .project-links {{ flex-direction: column; }} .project-link {{ width: 100%; justify-content: center; }} }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">Back to Portfolio</a>
+        <h1>{title}</h1>
+        <div class="meta">
+            <span>📅 {frontmatter.get('date', '')}</span>
+            <span>🏷️ {', '.join(frontmatter.get('category', []))}</span>
+        </div>
+        <div class="tags">
+            {''.join([f'<span class="tag">{tag}</span>' for tag in frontmatter.get('tags', [])])}
+        </div>
+        <div class="project-links">
+            {f'<a href="{frontmatter.get("github")}" class="project-link" target="_blank">📂 View Code on GitHub</a>' if frontmatter.get('github') else ''}
+            {f'<a href="{frontmatter.get("demo_url")}" class="project-link demo" target="_blank">🚀 Try Live Demo</a>' if frontmatter.get('demo_url') else ''}
+        </div>
+        <div class="content">
+            {body_html}
+        </div>
+        <div class="project-links">
+            <a href="/" class="project-link">← Back to Portfolio</a>
+        </div>
+    </div>
+</body>
+</html>'''
+    
+    return html_template
+
+def create_blog_post(md_file, project_id, frontmatter, body):
+    """Create HTML blog post from markdown"""
+    BLOG_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    html_content = markdown_to_html(body, frontmatter['title'], frontmatter)
+    blog_file = BLOG_OUTPUT_DIR / f"{project_id}.html"
+    with open(blog_file, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print(f"   ✅ Created blog post: blog/{project_id}.html")
+    return f"/blog/{project_id}.html"
 
 def markdown_to_project(md_file):
     """Convert markdown file to project JSON entry"""
@@ -64,91 +167,74 @@ def markdown_to_project(md_file):
     
     frontmatter, body = parse_frontmatter(content)
     
-    # Required fields
     if 'title' not in frontmatter:
         print(f"⚠️  Skipping {md_file.name}: missing 'title' in frontmatter")
         return None
     
-    # Extract or generate fields
     project_id = frontmatter.get('id', generate_project_id(frontmatter['title']))
     
-    # Get date (from frontmatter or file modification time)
-    if 'date' in frontmatter:
-        date_str = frontmatter['date']
-    else:
+    date_str = frontmatter.get('date')
+    if not date_str:
         mod_time = datetime.fromtimestamp(md_file.stat().st_mtime)
         date_str = mod_time.strftime('%b %Y')
     
-    # Extract description (first paragraph or from frontmatter)
     description = frontmatter.get('description', '')
     if not description:
-        # Get first paragraph from body
         paragraphs = [p.strip() for p in body.split('\n\n') if p.strip() and not p.startswith('#')]
         if paragraphs:
-            description = paragraphs[0][:200]  # First 200 chars
+            description = paragraphs[0][:200]
     
-    # Get categories (default to 'ml')
     categories = frontmatter.get('category', frontmatter.get('categories', ['ml']))
     if isinstance(categories, str):
         categories = [cat.strip() for cat in categories.split(',')]
     
-    # Get tags
     tags = frontmatter.get('tags', [])
     if isinstance(tags, str):
         tags = [tag.strip() for tag in tags.split(',')]
     
-    # Get metrics (from frontmatter or parse from markdown)
     metrics = frontmatter.get('metrics', extract_metrics_from_markdown(body))
     
-    # Check if Lambda function exists for this project
-    lambda_function_name = f"ml-portfolio-{project_id}"
-    manifest_path = BUILD_DIR / 'deployment_manifest.json'
-    demo_url = None
+    blog_url = create_blog_post(md_file, project_id, frontmatter, body)
     
-    if manifest_path.exists():
-        try:
-            with open(manifest_path) as f:
-                manifest = json.load(f)
-            
-            for func in manifest.get('functions', []):
-                if func['function_name'] == lambda_function_name:
-                    # Get API endpoint
-                    api_docs_path = BUILD_DIR / 'api_docs.json'
-                    if api_docs_path.exists():
-                        with open(api_docs_path) as f:
-                            api_docs = json.load(f)
-                        
-                        for endpoint in api_docs['endpoints']:
-                            if func['api_route'] in endpoint['path']:
-                                demo_url = endpoint['url']
-                                break
-        except Exception as e:
-            print(f"⚠️  Error checking Lambda functions: {e}")
+    # Check for Lambda function
+    demo_url = frontmatter.get('demo_url')
+    if not demo_url:
+        lambda_function_name = f"ml-portfolio-{project_id}"
+        manifest_path = BUILD_DIR / 'deployment_manifest.json'
+        if manifest_path.exists():
+            try:
+                with open(manifest_path) as f:
+                    manifest = json.load(f)
+                for func in manifest.get('functions', []):
+                    if func['function_name'] == lambda_function_name:
+                        api_docs_path = BUILD_DIR / 'api_docs.json'
+                        if api_docs_path.exists():
+                            with open(api_docs_path) as f:
+                                api_docs = json.load(f)
+                            for endpoint in api_docs['endpoints']:
+                                if func['api_route'] in endpoint['path']:
+                                    demo_url = endpoint['url']
+                                    break
+            except Exception as e:
+                print(f"   ⚠️  Error checking Lambda: {e}")
     
-    # Override with manual demo_url if provided
-    demo_url = frontmatter.get('demo_url', demo_url)
-    
-    # Build project entry
     project = {
         'id': project_id,
         'title': frontmatter['title'],
         'date': date_str,
         'description': description,
         'category': categories,
-        'tags': tags
+        'tags': tags,
+        'blog_url': blog_url
     }
     
-    # Optional fields
     if metrics:
         project['metrics'] = metrics
-    
     if frontmatter.get('github'):
         project['github'] = frontmatter['github']
-    
     if demo_url:
         project['demo_url'] = demo_url
         project['demo_description'] = frontmatter.get('demo_description', f"Live demo of {frontmatter['title']}")
-    
     if frontmatter.get('article'):
         project['article'] = frontmatter['article']
     
@@ -157,196 +243,48 @@ def markdown_to_project(md_file):
 def generate_projects_json():
     """Generate projects.json from all markdown files"""
     print("=" * 60)
-    print("📝 Generating projects.json from Markdown")
+    print("📝 Generating projects.json and blog posts")
     print("=" * 60)
     
     if not PROJECTS_DIR.exists():
-        print(f"⚠️  Projects directory not found: {PROJECTS_DIR}")
-        print(f"   Creating directory...")
         PROJECTS_DIR.mkdir(parents=True)
-        # Create a default example project
-        create_example_project()
         return
     
-    # Find all markdown files
     md_files = list(PROJECTS_DIR.glob('*.md'))
-    
     if not md_files:
         print(f"⚠️  No markdown files found in {PROJECTS_DIR}")
-        print(f"   Create .md files with project frontmatter")
-        # Create a default example
-        create_example_project()
-        md_files = list(PROJECTS_DIR.glob('*.md'))
+        return
     
     print(f"\n📂 Found {len(md_files)} markdown file(s)\n")
-    
     projects = []
     
     for md_file in sorted(md_files, key=lambda x: x.stat().st_mtime, reverse=True):
         print(f"{'─' * 60}")
         print(f"Processing: {md_file.name}")
-        
         project = markdown_to_project(md_file)
-        
         if project:
             projects.append(project)
             print(f"✅ Added: {project['title']}")
-            print(f"   ID: {project['id']}")
-            print(f"   Categories: {', '.join(project['category'])}")
+            print(f"   Blog: {project['blog_url']}")
+            if project.get('github'):
+                print(f"   GitHub: {project['github']}")
             if project.get('demo_url'):
-                print(f"   🟢 Live demo: {project['demo_url']}")
-        else:
-            print(f"⚠️  Skipped")
+                print(f"   🟢 Demo: {project['demo_url']}")
     
-    # Ensure output directory exists
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-    
-    # Write projects.json
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(projects, f, indent=2, ensure_ascii=False)
     
     print(f"\n{'=' * 60}")
     print(f"✅ Generated projects.json with {len(projects)} project(s)")
+    print(f"✅ Created {len(projects)} blog post(s) in {BLOG_OUTPUT_DIR}/")
     print(f"{'=' * 60}")
-    print(f"\n📄 Output: {OUTPUT_FILE}")
-    print(f"📊 Projects by category:")
-    
-    # Count by category
-    category_counts = {}
-    for project in projects:
-        for cat in project['category']:
-            category_counts[cat] = category_counts.get(cat, 0) + 1
-    
-    for cat, count in sorted(category_counts.items()):
-        print(f"   • {cat}: {count}")
-
-def create_example_project():
-    """Create an example project markdown file"""
-    example_path = PROJECTS_DIR / 'bone-fracture-detection.md'
-    
-    example_content = '''---
-title: AI-Powered Bone Fracture Detection
-date: Feb 2026
-category: ml, cv, deploy
-tags: Deep Learning, Computer Vision, PyTorch, Faster R-CNN, Medical AI, LIVE
-github: https://github.com/mvanslyke/bone-fracture-detection
-demo_url: https://huggingface.co/spaces/mvanslyke/bone-fracture-detection
-demo_description: Upload an X-ray image to detect and localize bone fractures with bounding boxes
-article: https://mvanslyke-ml.com/blog/bone-fracture-detection
-metrics:
-  Accuracy: 88.6%
-  Loss: 11.4%
-  Model: ResNet50 FPN
-  Training Time: 1 week
----
-
-## Overview
-
-Developed a deep learning system to detect and localize bone fractures in X-ray images of upper extremities using Faster R-CNN with ResNet50 FPN V2 backbone. The model achieved 88.6% accuracy, exceeding the initial 85% target.
-
-## Problem Statement
-
-Medical facilities process thousands of X-rays daily. Accurate fracture identification is challenging, especially for trainees and in emergency settings. Small hairline fractures can be easily missed, yet timely detection is critical for proper treatment.
-
-## Solution
-
-Built a production-grade AI system using:
-
-- **Model**: Faster R-CNN with ResNet50 FPN V2 backbone
-- **Training**: 5 epochs on 3,000+ annotated X-ray images
-- **Optimization**: Aggressive data augmentation for real-world robustness
-- **Deployment**: Interactive demo on Hugging Face Spaces
-
-## Key Results
-
-| Metric | Value |
-|--------|-------|
-| Final Loss | 11.4% |
-| Accuracy | 88.6% |
-| Target | 85% ✅ |
-| Dataset | 3,000+ images |
-
-## Technical Highlights
-
-### Data Augmentation
-Implemented multiple augmentation techniques to simulate real-world conditions:
-- Random AutoContrast (10%)
-- Random Sharpness (10%)
-- Random Horizontal Flip (10%)
-- Random Inversion (10%)
-- Random Erasing (10%)
-
-### Model Comparison
-Trained and compared 4 model variants:
-1. Faster R-CNN + ResNet50 FPN
-2. Faster R-CNN + ResNet50 FPN V2 (Winner)
-3. Faster R-CNN + MobileNet V3 Large
-4. Faster R-CNN + MobileNet V3 Large 320
-
-## Real-World Impact
-
-### For Medical Professionals
-- **Second Opinion Tool**: Automated verification system
-- **Triage Support**: Prioritize urgent cases in busy ERs
-- **Training Aid**: Educational tool for medical students
-
-### For Healthcare Systems
-- **Faster Diagnosis**: Reduced time from imaging to treatment
-- **Error Reduction**: Catch subtle fractures that might be missed
-- **Cost Efficiency**: Optimize specialist consultation time
-
-## Live Demo
-
-Try the interactive demo on Hugging Face Spaces:
-- Upload X-ray images (JPEG, PNG)
-- Real-time fracture detection with bounding boxes
-- Confidence scores for each prediction
-- Support for multiple fractures per image
-
-**[Launch Demo →](https://huggingface.co/spaces/mvanslyke/bone-fracture-detection)**
-
-## Technical Stack
-
-**Languages & Frameworks:**
-- Python 3.10
-- PyTorch & TorchVision
-- OpenCV
-
-**Training:**
-- Kaggle GPU acceleration
-- Adam optimizer (lr: 0.0001)
-- Batch size: 12
-- 5 training epochs
-
-## Future Work
-
-- Extend to lower extremities and spine
-- Integration with hospital PACS systems
-- Severity classification
-- Real-time model retraining pipeline
-'''
-    
-    PROJECTS_DIR.mkdir(parents=True, exist_ok=True)
-    
-    if not example_path.exists():
-        with open(example_path, 'w', encoding='utf-8') as f:
-            f.write(example_content)
-        
-        print(f"\n📝 Created example project: {example_path}")
-        print(f"   Edit this file and create more .md files in {PROJECTS_DIR}/")
 
 def main():
-    """Main entry point"""
-    # Create example if projects directory is empty
-    if not PROJECTS_DIR.exists() or not list(PROJECTS_DIR.glob('*.md')):
-        print("Creating example project...")
-        create_example_project()
-    
-    # Generate projects.json
     try:
         generate_projects_json()
     except Exception as e:
-        print(f"\n❌ Error generating projects.json: {e}")
+        print(f"\n❌ Error: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)

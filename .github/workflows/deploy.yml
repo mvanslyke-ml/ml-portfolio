@@ -8,54 +8,9 @@ on:
 env:
   AWS_REGION: us-east-1
   S3_BUCKET: mvanslyke-ml.com
-  CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+  MODEL_BUCKET: mvanslyke-ml-models
   
 jobs:
-  deploy-website:
-    name: Deploy Website to S3
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-    
-    - name: Install Python dependencies
-      run: |
-        pip install boto3 pyyaml markdown beautifulsoup4
-    
-    - name: Generate projects.json from markdown
-      run: |
-        python scripts/generate_projects.py
-    
-    - name: Sync website files to S3
-      run: |
-        aws s3 sync ./website s3://${{ env.S3_BUCKET }} \
-          --delete \
-          --exclude ".git/*" \
-          --exclude ".gitignore" \
-          --cache-control "public,max-age=3600"
-    
-    - name: Invalidate CloudFront cache
-      run: |
-        aws cloudfront create-invalidation \
-          --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --paths "/*"
-    
-    - name: Output website URL
-      run: echo "✅ Website deployed to https://mvanslyke-ml.com"
-
   deploy-lambda-functions:
     name: Deploy Lambda Functions
     runs-on: ubuntu-latest
@@ -78,7 +33,7 @@ jobs:
     
     - name: Install deployment dependencies
       run: |
-        pip install boto3 pyyaml
+        pip install boto3 pyyaml --break-system-packages
     
     - name: Deploy all Lambda functions
       run: |
@@ -88,12 +43,15 @@ jobs:
       run: |
         python scripts/update_api_gateway.py
     
-    - name: Output API URLs
-      run: |
-        echo "✅ API deployed to https://api.mvanslyke-ml.com"
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: lambda-deployment
+        path: .build/
+        retention-days: 1
 
-  update-projects-with-demos:
-    name: Update Projects with Lambda Demos
+  generate-projects:
+    name: Generate Projects and Blog Posts
     runs-on: ubuntu-latest
     needs: [deploy-lambda-functions]
     
@@ -106,6 +64,42 @@ jobs:
       with:
         python-version: '3.9'
     
+    - name: Download Lambda deployment artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: lambda-deployment
+        path: .build/
+    
+    - name: Install dependencies
+      run: |
+        pip install boto3 pyyaml markdown --break-system-packages
+    
+    - name: Generate projects.json and blog posts
+      run: |
+        python scripts/generate_projects.py
+    
+    - name: Upload website artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: website-files
+        path: website/
+        retention-days: 1
+
+  deploy-website:
+    name: Deploy Website to S3
+    runs-on: ubuntu-latest
+    needs: [generate-projects]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Download website artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: website-files
+        path: website/
+      
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
@@ -113,25 +107,26 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
     
-    - name: Install Python dependencies
+    - name: Sync website files to S3
       run: |
-        pip install boto3 pyyaml markdown beautifulsoup4
-    
-    - name: Regenerate projects.json with demo URLs
-      run: |
-        python scripts/generate_projects.py
-    
-    - name: Upload projects.json to S3
-      run: |
-        aws s3 cp website/projects.json s3://${{ env.S3_BUCKET }}/projects.json \
+        # Upload main website files
+        aws s3 sync website/ s3://${{ env.S3_BUCKET }}/ \
+          --exclude "blog/*" \
+          --delete \
           --cache-control "public,max-age=3600"
+        
+        # Upload blog posts separately (no delete to preserve old posts)
+        aws s3 sync website/blog/ s3://${{ env.S3_BUCKET }}/blog/ \
+          --cache-control "public,max-age=86400"
     
-    - name: Invalidate projects.json cache
+    - name: Invalidate CloudFront cache
       run: |
         aws cloudfront create-invalidation \
-          --distribution-id ${{ env.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --paths "/projects.json"
+          --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "/*"
     
-    - name: Success message
+    - name: Output URLs
       run: |
-        echo "✅ Projects updated with live demo links"
+        echo "✅ Website deployed to https://mvanslyke-ml.com"
+        echo "✅ Blog posts available at https://mvanslyke-ml.com/blog/"
+        echo "✅ API available at https://api.mvanslyke-ml.com"

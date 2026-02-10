@@ -79,9 +79,10 @@ function renderProjects(projects, filter = 'all') {
             ` : ''}
             
             <div class="project-links">
+                ${project.blog_url ? `<a href="${project.blog_url}" class="project-link">Read More</a>` : ''}
                 ${project.github ? `<a href="${project.github}" class="project-link" target="_blank">Code</a>` : ''}
                 ${project.demo_url ? `
-                    <a href="#" class="project-link demo" onclick="openDemo('${project.id}', '${project.title}', '${project.demo_description || ''}', '${project.demo_url}'); return false;">
+                    <a href="#" class="project-link demo" onclick="openDemo('${project.id}', '${escapeQuotes(project.title)}', '${escapeQuotes(project.demo_description || '')}', '${project.demo_url}', ${project.category.includes('cv')}); return false;">
                         Live Demo
                     </a>
                 ` : ''}
@@ -89,6 +90,11 @@ function renderProjects(projects, filter = 'all') {
             </div>
         </div>
     `).join('');
+}
+
+// Helper function to escape quotes in strings
+function escapeQuotes(str) {
+    return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 
 // Setup filter tabs
@@ -105,14 +111,63 @@ function setupFilters(projects) {
 
 // Modal functions
 let currentDemoUrl = '';
+let currentIsCV = false;
 
-function openDemo(projectId, title, description, demoUrl) {
+function openDemo(projectId, title, description, demoUrl, isCV = false) {
     document.getElementById('modalTitle').textContent = title + ' - Live Demo';
     document.getElementById('modalDescription').textContent = description;
-    document.getElementById('demoInput').value = '';
     document.getElementById('demoOutput').textContent = 'Awaiting prediction...';
     document.getElementById('demoModal').classList.add('active');
+    
     currentDemoUrl = demoUrl;
+    currentIsCV = isCV;
+    
+    // Setup input based on model type
+    const inputContainer = document.getElementById('demoInputContainer');
+    
+    if (isCV) {
+        // Computer Vision - use file input
+        inputContainer.innerHTML = `
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                UPLOAD IMAGE
+            </label>
+            <input 
+                type="file" 
+                id="demoInput" 
+                accept="image/*"
+                class="demo-input" 
+                style="padding: 0.75rem; cursor: pointer;">
+            <div id="imagePreview" style="margin-top: 1rem; text-align: center;"></div>
+        `;
+    } else {
+        // NLP/ML - use text input
+        inputContainer.innerHTML = `
+            <label style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+                INPUT DATA
+            </label>
+            <textarea 
+                id="demoInput" 
+                class="demo-input" 
+                rows="4" 
+                placeholder="Enter your input here..."></textarea>
+        `;
+    }
+    
+    // Add change listener for image preview
+    if (isCV) {
+        document.getElementById('demoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    document.getElementById('imagePreview').innerHTML = `
+                        <img src="${event.target.result}" style="max-width: 100%; max-height: 300px; border: 1px solid var(--border); border-radius: 4px;">
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
 }
 
 function closeModal() {
@@ -121,32 +176,70 @@ function closeModal() {
 
 // Run ML demo
 async function runDemo() {
-    const input = document.getElementById('demoInput').value;
     const output = document.getElementById('demoOutput');
-
-    if (!input.trim()) {
-        output.textContent = 'Error: Please provide input data';
-        return;
-    }
-
-    output.innerHTML = '<div class="loading"></div> Running inference...';
-
-    try {
-        // Call AWS Lambda endpoint
-        const response = await fetch(currentDemoUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ input: input })
-        });
-
-        const result = await response.json();
+    
+    if (currentIsCV) {
+        // Handle image input
+        const fileInput = document.getElementById('demoInput');
+        const file = fileInput.files[0];
         
-        // Format the output
-        output.textContent = JSON.stringify(result, null, 2);
-    } catch (error) {
-        output.textContent = `Error: ${error.message}\n\nNote: Make sure your AWS Lambda endpoint is configured and accessible.`;
+        if (!file) {
+            output.textContent = 'Error: Please select an image file';
+            return;
+        }
+        
+        output.innerHTML = '<div class="loading"></div> Running inference...';
+        
+        try {
+            // Convert image to base64
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const base64Image = e.target.result.split(',')[1];
+                
+                // Call Lambda with image
+                const response = await fetch(currentDemoUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        image: base64Image,
+                        filename: file.name
+                    })
+                });
+                
+                const result = await response.json();
+                output.textContent = JSON.stringify(result, null, 2);
+            };
+            reader.readAsDataURL(file);
+        } catch (error) {
+            output.textContent = `Error: ${error.message}\n\nNote: Make sure your AWS Lambda endpoint is configured and accessible.`;
+        }
+    } else {
+        // Handle text input
+        const input = document.getElementById('demoInput').value;
+        
+        if (!input.trim()) {
+            output.textContent = 'Error: Please provide input data';
+            return;
+        }
+        
+        output.innerHTML = '<div class="loading"></div> Running inference...';
+        
+        try {
+            const response = await fetch(currentDemoUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ input: input })
+            });
+            
+            const result = await response.json();
+            output.textContent = JSON.stringify(result, null, 2);
+        } catch (error) {
+            output.textContent = `Error: ${error.message}\n\nNote: Make sure your AWS Lambda endpoint is configured and accessible.`;
+        }
     }
 }
 
