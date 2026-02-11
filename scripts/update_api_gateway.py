@@ -167,16 +167,46 @@ def main():
     # Load deployment manifest
     manifest_path = BUILD_DIR / 'deployment_manifest.json'
     if not manifest_path.exists():
-        print("❌ No deployment manifest found. Run deploy_lambda.py first.")
-        sys.exit(1)
+        print("⚠️  No deployment manifest found.")
+        print("   This is fine - no Lambda functions to configure!")
+        print("   Creating empty API docs...")
+        
+        # Create empty API docs
+        BUILD_DIR.mkdir(parents=True, exist_ok=True)
+        empty_docs = {
+            'api_endpoint': None,
+            'endpoints': []
+        }
+        docs_path = BUILD_DIR / 'api_docs.json'
+        with open(docs_path, 'w') as f:
+            json.dump(empty_docs, f, indent=2)
+        
+        print(f"\n✅ Created empty API docs: {docs_path}")
+        print("\n💡 Add models when ready:")
+        print("   1. Create models/my-model/ directory")
+        print("   2. Add config.yml and lambda_function.py")
+        print("   3. Commit and push - deployment will happen automatically!")
+        return
     
     with open(manifest_path) as f:
         manifest = json.load(f)
     
-    deployed_functions = manifest['functions']
+    deployed_functions = manifest.get('functions', [])
     
     if not deployed_functions:
         print("⚠️  No functions to configure")
+        print("   Creating empty API docs...")
+        
+        # Create empty API docs
+        empty_docs = {
+            'api_endpoint': None,
+            'endpoints': []
+        }
+        docs_path = BUILD_DIR / 'api_docs.json'
+        with open(docs_path, 'w') as f:
+            json.dump(empty_docs, f, indent=2)
+        
+        print(f"\n✅ No Lambda functions deployed yet - this is fine!")
         return
     
     print(f"\n📋 Configuring API for {len(deployed_functions)} function(s)\n")

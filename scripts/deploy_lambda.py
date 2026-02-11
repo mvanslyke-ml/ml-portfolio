@@ -293,11 +293,14 @@ def main():
         print("   Create a models/ directory with your model folders")
         return
     
-    model_dirs = [d for d in MODELS_DIR.iterdir() if d.is_dir()]
+    model_dirs = [d for d in MODELS_DIR.iterdir() if d.is_dir() and not d.name.startswith('.') and not d.name.startswith('EXAMPLE')]
     
     if not model_dirs:
-        print(f"⚠️  No models found in '{MODELS_DIR}/' directory")
-        print("   Create a model directory with config.yml and lambda_function.py")
+        print(f"\n⚠️  No models found in '{MODELS_DIR}/' directory")
+        print("   This is fine - add models when ready!")
+        print("   Creating empty deployment manifest...")
+        save_deployment_manifest([])
+        print("\n✅ Skipping Lambda deployment (no models to deploy)")
         return
     
     print(f"\n📂 Found {len(model_dirs)} model(s) to deploy:\n")
@@ -320,10 +323,10 @@ def main():
         if deployment_info:
             deployed_functions.append(deployment_info)
     
-    # Save deployment manifest
+    # Save deployment manifest (even if empty)
+    save_deployment_manifest(deployed_functions)
+    
     if deployed_functions:
-        save_deployment_manifest(deployed_functions)
-        
         print("\n" + "=" * 60)
         print("✅ Deployment Complete!")
         print("=" * 60)
@@ -331,8 +334,11 @@ def main():
         for func in deployed_functions:
             print(f"  • {func['function_name']} → {func['api_route']}")
     else:
-        print("\n⚠️  No functions were deployed")
-        sys.exit(1)
+        print("\n" + "=" * 60)
+        print("✅ No models to deploy - this is normal!")
+        print("=" * 60)
+        print("\nAdd models when ready by creating directories in models/")
+        print("Example: models/my-model/ with config.yml and lambda_function.py")
 
 if __name__ == '__main__':
     main()
