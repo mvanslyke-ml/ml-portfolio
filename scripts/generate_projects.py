@@ -26,7 +26,7 @@ BLOG_OUTPUT_DIR = Path('website/blog')
 BUILD_DIR = Path('.build')
 
 def parse_frontmatter(content):
-    """Extract YAML frontmatter from markdown"""
+    """Extract YAML frontmatter from markdown, or extract from content if missing"""
     frontmatter_pattern = r'^---\s*\n(.*?)\n---\s*\n'
     match = re.match(frontmatter_pattern, content, re.DOTALL)
     
@@ -39,7 +39,52 @@ def parse_frontmatter(content):
             print(f"⚠️  YAML parsing error: {e}")
             return {}, content
     else:
-        return {}, content
+        # No frontmatter - try to extract from content
+        print(f"   ℹ️  No frontmatter found - extracting from content")
+        
+        # Extract title from first H1 heading
+        title_match = re.search(r'^#\s+(.+?)$', content, re.MULTILINE)
+        if title_match:
+            title = title_match.group(1).strip()
+            
+            # Extract subtitle/description from italic text or first paragraph
+            description = ''
+            desc_match = re.search(r'^\*(.+?)\*$', content, re.MULTILINE)
+            if desc_match:
+                description = desc_match.group(1).strip()
+            
+            # Try to infer category from keywords in title/content
+            categories = ['ml']  # Default
+            title_lower = title.lower()
+            content_lower = content.lower()
+            
+            if any(word in title_lower or word in content_lower[:500] for word in ['nlp', 'text', 'sentiment', 'language']):
+                categories.append('nlp')
+            if any(word in title_lower or word in content_lower[:500] for word in ['vision', 'image', 'detection', 'classification', 'cnn', 'resnet']):
+                categories.append('cv')
+            if any(word in title_lower or word in content_lower[:500] for word in ['deploy', 'production', 'api', 'lambda', 'live demo']):
+                categories.append('deploy')
+            
+            # Extract tags from common technical terms
+            tags = []
+            tech_terms = ['pytorch', 'tensorflow', 'keras', 'scikit-learn', 'aws', 'lambda', 
+                         'bert', 'resnet', 'yolo', 'cnn', 'rnn', 'lstm', 'gpt', 'transformer']
+            for term in tech_terms:
+                if term in content_lower[:1000]:
+                    tags.append(term.upper() if term in ['aws', 'bert', 'yolo', 'cnn', 'rnn', 'lstm', 'gpt'] else term.title())
+            
+            frontmatter = {
+                'title': title,
+                'category': categories
+            }
+            if description:
+                frontmatter['description'] = description
+            if tags:
+                frontmatter['tags'] = tags
+            
+            return frontmatter, content
+        else:
+            return {}, content
 
 def extract_metrics_from_markdown(body):
     """Extract metrics from markdown tables or sections"""
@@ -168,7 +213,8 @@ def markdown_to_project(md_file):
     frontmatter, body = parse_frontmatter(content)
     
     if 'title' not in frontmatter:
-        print(f"⚠️  Skipping {md_file.name}: missing 'title' in frontmatter")
+        print(f"⚠️  Skipping {md_file.name}: could not extract title from frontmatter or content")
+        print(f"   Add YAML frontmatter with 'title:' field, or start file with '# Title'")
         return None
     
     project_id = frontmatter.get('id', generate_project_id(frontmatter['title']))
@@ -236,7 +282,7 @@ def markdown_to_project(md_file):
         project['github'] = frontmatter['github']
     else:
         # Auto-generate URL to project directory in monorepo
-        project['github'] = f"https://github.com/mvanslyke-ml/ml-portfolio/projects/{project_id}"
+        project['github'] = f"https://github.com/mvanslyke-ml/ml-portfolio/tree/main/projects/{project_id}"
     
     if demo_url:
         project['demo_url'] = demo_url
