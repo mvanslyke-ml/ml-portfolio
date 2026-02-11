@@ -58,7 +58,7 @@ jobs:
         fi
     
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: lambda-deployment
         path: .build/
@@ -79,7 +79,7 @@ jobs:
         python-version: '3.9'
     
     - name: Download Lambda deployment artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       continue-on-error: true
       with:
         name: lambda-deployment
@@ -110,7 +110,7 @@ jobs:
         python scripts/generate_projects.py
     
     - name: Upload website artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: website-files
         path: website/
@@ -126,7 +126,7 @@ jobs:
       uses: actions/checkout@v3
       
     - name: Download website artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: website-files
         path: website/
