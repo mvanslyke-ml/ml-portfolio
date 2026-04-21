@@ -6,6 +6,7 @@ Fixed for local execution with proper error handling
 import numpy as np
 import pandas as pd
 import os
+import copy
 import torchvision
 import torch
 from torch import nn
@@ -349,6 +350,7 @@ def model_training(model, train_loader, val_loader, optimizer, model_idx):
     v_traj = []
     epoch_list = []
     best_val_loss = np.Inf
+    best_state_dict = None  # keep best weights in memory
     
     print(f"\n{'='*60}")
     print(f"Training Model {model_idx + 1}")
@@ -373,17 +375,26 @@ def model_training(model, train_loader, val_loader, optimizer, model_idx):
         print(f"  Train Loss: {train_loss:.4f}")
         print(f"  Val Loss:   {val_loss:.4f}")
         
-        # Save best model
+        # Keep track of best weights
         if val_loss < best_val_loss:
-            model_path = MODEL_OUTPUT_DIR / f'model{model_idx + 1}_best.pt'
-            torch.save(model.state_dict(), model_path)
-            print(f"  ✓ Best model saved to {model_path}")
             best_val_loss = val_loss
+            best_state_dict = copy.deepcopy(model.state_dict())
+            print(f"  ✓ New best validation loss: {best_val_loss:.4f}")
     
-    # Save final model
+    # Guarantee model1_best.pt is always written at the end of training.
+    # Use the best weights captured during training; fall back to the
+    # final epoch weights if something went wrong.
+    if best_state_dict is None:
+        best_state_dict = model.state_dict()
+    
+    best_model_path = MODEL_OUTPUT_DIR / f'model{model_idx + 1}_best.pt'
+    torch.save(best_state_dict, best_model_path)
+    print(f"\n✓ Best model saved to {best_model_path}")
+    
+    # Save final model (last epoch weights)
     final_model_path = MODEL_OUTPUT_DIR / f'model{model_idx + 1}_final.pt'
     torch.save(model.state_dict(), final_model_path)
-    print(f"\n✓ Final model saved to {final_model_path}")
+    print(f"✓ Final model saved to {final_model_path}")
     print(f"✓ Best Validation Loss: {best_val_loss:.4f}")
     
     # Plot training curves
