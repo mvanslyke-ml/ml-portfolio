@@ -25,3 +25,5 @@ projects/data/BoneFractureYolo8/valid/labels/*
 projects/deployment_package/*
 
 projects/models/*
+
+projects/fasterrcnn_fracture_v1.tar.gz
