@@ -4,8 +4,8 @@ date: Feb 2026
 category: ml, cv, deploy
 tags: Deep Learning, Computer Vision, PyTorch, Faster R-CNN, Medical AI, LIVE
 github: https://github.com/mvanslyke-ml/ml-portfolio/projects/bone-fracture-detection
-demo_url: https://mvanslyke-ml.com/demos/bone-fracture-detection
-demo_description: Upload an X-ray image to detect and localize bone fractures with bounding boxes
+demo_url: https://api.mvanslyke-ml.com/fracture-detector
+demo_description: Upload an X-ray image to detect and localize bone fractures with bounding boxes (powered by SageMaker Serverless Inference)
 article: https://mvanslyke-ml.com/blog/bone-fracture-detection
 metrics:
   Accuracy: 88.6%
@@ -37,7 +37,7 @@ The model successfully:
 - Achieved 88.6% accuracy (11.4% loss)
 - Detects multiple fractures per image
 - Provides precise bounding box localization
-- Classifies fracture types across 8 categories
+- Classifies fracture types across 7 categories
 
 ## Technical Approach
 
@@ -98,7 +98,7 @@ Try the interactive demo on Hugging Face Spaces:
 **Model Architecture:**
 - Backbone: ResNet50 FPN V2
 - Detection head: Faster R-CNN
-- 8 output classes (fracture types + healthy/background)
+- 7 output classes (background is handled internally by the detector)
 
 ## Challenges & Solutions
 

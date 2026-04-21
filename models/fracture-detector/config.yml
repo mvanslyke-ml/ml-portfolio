@@ -1,0 +1,16 @@
+name: fracture-detector
+description: AI-powered bone fracture detection (Faster R-CNN, ResNet50 FPN V2). Proxies image uploads to a SageMaker Serverless endpoint.
+api_route: /fracture-detector
+memory: 512
+timeout: 60
+model_file: none
+environment:
+  SAGEMAKER_ENDPOINT_NAME: fracture-detector
+example_request:
+  image: "<base64-encoded JPEG/PNG bytes>"
+  filename: "xray.jpg"
+example_response:
+  predictions:
+    - label: "fracture_type_3"
+      score: 0.91
+      box: [124.5, 88.1, 240.0, 192.4]

@@ -26,10 +26,34 @@ BUILD_DIR = Path('.build')
 MODEL_BUCKET = 'mvanslyke-ml-models'
 LAMBDA_ROLE_NAME = 'MLPortfolioLambdaRole'
 
+SAGEMAKER_INVOKE_POLICY_NAME = 'SageMakerInvokeEndpoint'
+SAGEMAKER_INVOKE_POLICY_DOC = {
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": ["sagemaker:InvokeEndpoint"],
+        "Resource": "*"
+    }]
+}
+
+
+def _ensure_sagemaker_invoke_policy(role_name):
+    """Attach an inline policy that lets the role invoke any SageMaker endpoint."""
+    try:
+        iam_client.put_role_policy(
+            RoleName=role_name,
+            PolicyName=SAGEMAKER_INVOKE_POLICY_NAME,
+            PolicyDocument=json.dumps(SAGEMAKER_INVOKE_POLICY_DOC)
+        )
+    except Exception as e:
+        print(f"   ⚠️  Could not attach SageMaker invoke policy: {e}")
+
+
 def get_or_create_lambda_role():
     """Get or create IAM role for Lambda functions"""
     try:
         role = iam_client.get_role(RoleName=LAMBDA_ROLE_NAME)
+        _ensure_sagemaker_invoke_policy(LAMBDA_ROLE_NAME)
         return role['Role']['Arn']
     except iam_client.exceptions.NoSuchEntityException:
         print(f"Creating IAM role: {LAMBDA_ROLE_NAME}")
@@ -60,7 +84,10 @@ def get_or_create_lambda_role():
             RoleName=LAMBDA_ROLE_NAME,
             PolicyArn='arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess'
         )
-        
+
+        # Inline policy: allow invoking SageMaker endpoints (needed by proxy Lambdas)
+        _ensure_sagemaker_invoke_policy(LAMBDA_ROLE_NAME)
+
         print(f"✅ Created IAM role: {LAMBDA_ROLE_NAME}")
         return role['Role']['Arn']
 
@@ -88,7 +115,7 @@ def package_lambda(model_dir):
         print(f"⏭️  Skipping {model_name}: container-based deployment (not a zip package)")
         print(f"   Deploy manually with: bash models/{model_name}/build_and_push.sh")
         return None
-        
+    
     print(f"📦 Packaging {model_name}...")
     
     # Create build directory

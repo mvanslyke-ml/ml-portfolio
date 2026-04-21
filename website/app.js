@@ -1,3 +1,54 @@
+// Matrix rain effect — cascading characters in the page background
+function createMatrixRain() {
+    const canvas = document.getElementById('matrix-rain');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}[]<>/\\=+-*#$%@&_'.split('');
+    const fontSize = 16;
+    let columns = 0;
+    let drops = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        columns = Math.floor(canvas.width / fontSize);
+        drops = new Array(columns).fill(0).map(() => Math.random() * -50);
+    }
+
+    function draw() {
+        // Faint dark overlay creates the trailing-fade effect
+        ctx.fillStyle = 'rgba(10, 10, 15, 0.08)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+            const char = charset[Math.floor(Math.random() * charset.length)];
+            const x = i * fontSize;
+            const y = drops[i] * fontSize;
+
+            // Bright leading character
+            ctx.fillStyle = '#9be9ff';
+            ctx.fillText(char, x, y);
+
+            // Trailing accent character one row up
+            ctx.fillStyle = '#00D9FF';
+            ctx.fillText(char, x, y - fontSize);
+
+            // Reset column at random once it falls off screen
+            if (y > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    setInterval(draw, 55);
+}
+
 // Create floating particles
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
@@ -257,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    createMatrixRain();
     createParticles();
     loadProjects();
 });
