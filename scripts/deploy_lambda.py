@@ -83,6 +83,12 @@ def package_lambda(model_dir):
     with open(config_file) as f:
         config = yaml.safe_load(f)
     
+    # Container-based models are deployed separately via build_and_push.sh
+    if config.get('deployment_type') == 'container':
+        print(f"⏭️  Skipping {model_name}: container-based deployment (not a zip package)")
+        print(f"   Deploy manually with: bash models/{model_name}/build_and_push.sh")
+        return None
+        
     print(f"📦 Packaging {model_name}...")
     
     # Create build directory

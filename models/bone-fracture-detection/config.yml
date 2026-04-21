@@ -1,0 +1,25 @@
+name: bone-fracture-detection
+description: AI-powered bone fracture detection using Faster R-CNN with ResNet50 FPN V2. Detects and localizes fractures in upper extremity X-ray images.
+version: 1.0.0
+deployment_type: container
+memory: 3008
+timeout: 120
+api_route: /bone-fracture-detect
+
+environment:
+  MODEL_BUCKET: mvanslyke-ml-models
+  MODEL_KEY: bone-fracture-detection/model.pt
+  IMAGE_SIZE: "224"
+  CONFIDENCE_THRESHOLD: "0.5"
+  MODEL_ARCHITECTURE: fasterrcnn_resnet50_fpn_v2
+
+example_request:
+  image: "<base64 encoded X-ray image>"
+  threshold: 0.5
+
+example_response:
+  predictions:
+    - box: [10, 20, 100, 150]
+      label: forearm fracture
+      confidence: 0.92
+  num_detections: 1
