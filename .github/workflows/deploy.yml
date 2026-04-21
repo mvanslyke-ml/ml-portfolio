@@ -17,15 +17,15 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -46,7 +46,7 @@ jobs:
       run: |
         python scripts/update_api_gateway.py
     
-    - name: Create empty build artifacts if needed
+    - name: Ensure build artifacts exist
       run: |
         # Ensure .build directory exists with at least empty manifest
         mkdir -p .build
@@ -63,6 +63,7 @@ jobs:
         name: lambda-deployment
         path: .build/
         retention-days: 1
+        if-no-files-found: ignore
 
   generate-projects:
     name: Generate Projects and Blog Posts
@@ -71,10 +72,10 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.9'
     
@@ -115,6 +116,7 @@ jobs:
         name: website-files
         path: website/
         retention-days: 1
+        if-no-files-found: warn
 
   deploy-website:
     name: Deploy Website to S3
@@ -123,7 +125,7 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       
     - name: Download website artifacts
       uses: actions/download-artifact@v4
@@ -132,7 +134,7 @@ jobs:
         path: website/
       
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
