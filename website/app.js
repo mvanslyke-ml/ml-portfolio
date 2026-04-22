@@ -17,8 +17,8 @@ function createMatrixRain() {
     }
 
     function draw() {
-        // Faint dark overlay creates the trailing-fade effect
-        ctx.fillStyle = 'rgba(10, 10, 15, 0.08)';
+        // Dark overlay — higher alpha = shorter, softer trails
+        ctx.fillStyle = 'rgba(10, 10, 15, 0.18)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
@@ -28,12 +28,12 @@ function createMatrixRain() {
             const x = i * fontSize;
             const y = drops[i] * fontSize;
 
-            // Bright leading character
-            ctx.fillStyle = '#9be9ff';
+            // Leading character — dimmed slightly
+            ctx.fillStyle = '#4db8cc';
             ctx.fillText(char, x, y);
 
-            // Trailing accent character one row up
-            ctx.fillStyle = '#00D9FF';
+            // Trailing accent one row up — even dimmer
+            ctx.fillStyle = '#2a8fa3';
             ctx.fillText(char, x, y - fontSize);
 
             // Reset column at random once it falls off screen

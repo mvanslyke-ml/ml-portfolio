@@ -242,18 +242,24 @@ def markdown_to_project(md_file):
     
     blog_url = create_blog_post(md_file, project_id, frontmatter, body)
     
-    # Check for Lambda function
+    # Check for Lambda function — demo_url discovery order:
+    # 1. Explicit demo_url in frontmatter
+    # 2. Matched via deployment manifest + api_docs.json
+    # 3. Fallback: api_docs.json directly (handles re-deploy failures gracefully)
     demo_url = frontmatter.get('demo_url')
     if not demo_url:
-        lambda_function_name = f"ml-portfolio-{project_id}"
+        expected_route = f"/{project_id}"
+        api_docs_path = BUILD_DIR / 'api_docs.json'
+
+        # Try manifest match first
         manifest_path = BUILD_DIR / 'deployment_manifest.json'
         if manifest_path.exists():
             try:
                 with open(manifest_path) as f:
                     manifest = json.load(f)
+                lambda_function_name = f"ml-portfolio-{project_id}"
                 for func in manifest.get('functions', []):
                     if func['function_name'] == lambda_function_name:
-                        api_docs_path = BUILD_DIR / 'api_docs.json'
                         if api_docs_path.exists():
                             with open(api_docs_path) as f:
                                 api_docs = json.load(f)
@@ -262,7 +268,21 @@ def markdown_to_project(md_file):
                                     demo_url = endpoint['url']
                                     break
             except Exception as e:
-                print(f"   ⚠️  Error checking Lambda: {e}")
+                print(f"   ⚠️  Error checking manifest: {e}")
+
+        # Fallback: search api_docs.json directly by expected route
+        # This picks up the URL even when a re-deploy fails but the
+        # Lambda + API Gateway are still live from a previous run.
+        if not demo_url and api_docs_path.exists():
+            try:
+                with open(api_docs_path) as f:
+                    api_docs = json.load(f)
+                for endpoint in api_docs.get('endpoints', []):
+                    if endpoint.get('path', '').rstrip('/') == expected_route:
+                        demo_url = endpoint['url']
+                        break
+            except Exception as e:
+                print(f"   ⚠️  Error reading api_docs fallback: {e}")
     
     project = {
         'id': project_id,
