@@ -37,6 +37,37 @@ SAGEMAKER_INVOKE_POLICY_DOC = {
     }]
 }
 
+# Managed policy ARNs that every Lambda execution role must have
+_REQUIRED_MANAGED_POLICIES = [
+    'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole',
+    'arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess',
+]
+
+
+def _ensure_managed_policies(role_name):
+    """Make sure all required managed policies are attached to the role.
+
+    When get_or_create_lambda_role() finds an existing role it previously
+    skipped re-attaching managed policies, which left roles without
+    AWSLambdaBasicExecutionRole — causing Lambda to run silently without
+    CloudWatch Logs.
+    """
+    try:
+        attached = iam_client.list_attached_role_policies(RoleName=role_name)
+        current_arns = {p['PolicyArn'] for p in attached.get('AttachedPolicies', [])}
+    except Exception as e:
+        print(f"   ⚠️  Could not list role policies: {e}")
+        return
+
+    for arn in _REQUIRED_MANAGED_POLICIES:
+        if arn not in current_arns:
+            try:
+                iam_client.attach_role_policy(RoleName=role_name, PolicyArn=arn)
+                short = arn.split('/')[-1]
+                print(f"   ✅ Attached managed policy: {short}")
+            except Exception as e:
+                print(f"   ⚠️  Could not attach {arn}: {e}")
+
 
 def _ensure_sagemaker_invoke_policy(role_name):
     """Attach an inline policy that lets the role invoke any SageMaker endpoint."""
@@ -54,7 +85,8 @@ def get_or_create_lambda_role():
     """Get or create IAM role for Lambda functions"""
     try:
         role = iam_client.get_role(RoleName=LAMBDA_ROLE_NAME)
-        _ensure_sagemaker_invoke_policy(LAMBDA_ROLE_NAME)
+        _ensure_managed_policies(LAMBDA_ROLE_NAME)       # CloudWatch Logs + S3
+        _ensure_sagemaker_invoke_policy(LAMBDA_ROLE_NAME)  # SageMaker invoke
         return role['Role']['Arn']
     except iam_client.exceptions.NoSuchEntityException:
         print(f"Creating IAM role: {LAMBDA_ROLE_NAME}")

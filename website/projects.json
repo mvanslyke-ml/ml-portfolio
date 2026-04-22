@@ -28,7 +28,7 @@
       "Training Images": "4,148 X-rays",
       "Deployment": "AWS SageMaker Serverless"
     },
-    "github": "https://github.com/mvanslyke-ml/ml-portfolio",
+    "github": "https://github.com/mvanslyke-ml/ml-portfolio/blob/main/projects/bone-fracture-detector.ipynb",
     "demo_url": "https://api.mvanslyke-ml.com/fracture-detector",
     "demo_description": "Upload an X-ray image to detect and localize bone fractures with bounding boxes (powered by AWS SageMaker Serverless)",
     "article": "https://mvanslyke-ml.com/blog/bone-fracture-detection"
