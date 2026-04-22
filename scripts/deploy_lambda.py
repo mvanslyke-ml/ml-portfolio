@@ -89,6 +89,12 @@ def get_or_create_lambda_role():
         _ensure_sagemaker_invoke_policy(LAMBDA_ROLE_NAME)
 
         print(f"✅ Created IAM role: {LAMBDA_ROLE_NAME}")
+        
+        # IAM roles take a few seconds to propagate before Lambda can assume them
+        import time
+        print("   Waiting 15s for IAM role to propagate...")
+        time.sleep(15)
+        
         return role['Role']['Arn']
 
 def get_model_hash(model_path):

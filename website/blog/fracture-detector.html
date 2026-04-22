@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Bone Fracture Detection | ML Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0A0E27;
+            --secondary: #1A1F3A;
+            --accent: #00D9FF;
+            --purple: #B794F6;
+            --green: #00FF88;
+            --text: #E8EEF2;
+            --text-muted: #8B95A5;
+            --border: rgba(0, 217, 255, 0.2);
+            --code-bg: #0D1117;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Sora', sans-serif; background: var(--primary); color: var(--text); line-height: 1.8; padding: 2rem; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--secondary); padding: 3rem; border: 1px solid var(--border); }
+        .back-link { display: inline-block; color: var(--accent); text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; margin-bottom: 2rem; transition: all 0.3s ease; }
+        .back-link:hover { text-shadow: 0 0 10px var(--accent); }
+        .back-link::before { content: '← '; }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent); }
+        .meta { display: flex; gap: 2rem; margin-bottom: 2rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted); }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+        .tag { padding: 0.4rem 0.8rem; background: rgba(0, 217, 255, 0.1); color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; border: 1px solid rgba(0, 217, 255, 0.3); }
+        .content { font-size: 1.05rem; line-height: 1.9; }
+        .content h2 { font-size: 2rem; margin: 2.5rem 0 1rem 0; color: var(--accent); }
+        .content h3 { font-size: 1.5rem; margin: 2rem 0 1rem 0; color: var(--purple); }
+        .content p { margin-bottom: 1.5rem; }
+        .content ul, .content ol { margin: 1.5rem 0 1.5rem 2rem; }
+        .content li { margin-bottom: 0.75rem; }
+        .content code { background: var(--code-bg); padding: 0.2rem 0.5rem; border-radius: 3px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; color: var(--green); }
+        .content pre { background: var(--code-bg); padding: 1.5rem; border-radius: 4px; overflow-x: auto; margin: 1.5rem 0; border: 1px solid var(--border); }
+        .content pre code { background: none; padding: 0; color: var(--text); }
+        .content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .content table th, .content table td { padding: 1rem; border: 1px solid var(--border); text-align: left; }
+        .content table th { background: var(--code-bg); color: var(--accent); font-weight: 600; }
+        .content a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s ease; }
+        .content a:hover { border-bottom-color: var(--accent); }
+        .content blockquote { border-left: 4px solid var(--accent); padding-left: 1.5rem; margin: 1.5rem 0; color: var(--text-muted); font-style: italic; }
+        .content img { max-width: 100%; height: auto; display: block; margin: 2rem auto; border: 1px solid var(--border); border-radius: 4px; }
+        .project-links { display: flex; gap: 1rem; margin: 3rem 0; flex-wrap: wrap; }
+        .project-link { padding: 1rem 2rem; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; border: 1px solid var(--border); color: var(--text); transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .project-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 217, 255, 0.05); }
+        .project-link.demo { background: rgba(0, 255, 136, 0.1); border-color: var(--green); color: var(--green); }
+        .project-link.demo:hover { background: rgba(0, 255, 136, 0.2); }
+        @media (max-width: 768px) { body { padding: 1rem; } .container { padding: 1.5rem; } h1 { font-size: 2rem; } .project-links { flex-direction: column; } .project-link { width: 100%; justify-content: center; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">Back to Portfolio</a>
+        <h1>AI-Powered Bone Fracture Detection</h1>
+        <div class="meta">
+            <span>📅 Apr 2026</span>
+            <span>🏷️ m, l, ,,  , c, v, ,,  , d, e, p, l, o, y</span>
+        </div>
+        <div class="tags">
+            <span class="tag">D</span><span class="tag">e</span><span class="tag">e</span><span class="tag">p</span><span class="tag"> </span><span class="tag">L</span><span class="tag">e</span><span class="tag">a</span><span class="tag">r</span><span class="tag">n</span><span class="tag">i</span><span class="tag">n</span><span class="tag">g</span><span class="tag">,</span><span class="tag"> </span><span class="tag">C</span><span class="tag">o</span><span class="tag">m</span><span class="tag">p</span><span class="tag">u</span><span class="tag">t</span><span class="tag">e</span><span class="tag">r</span><span class="tag"> </span><span class="tag">V</span><span class="tag">i</span><span class="tag">s</span><span class="tag">i</span><span class="tag">o</span><span class="tag">n</span><span class="tag">,</span><span class="tag"> </span><span class="tag">P</span><span class="tag">y</span><span class="tag">T</span><span class="tag">o</span><span class="tag">r</span><span class="tag">c</span><span class="tag">h</span><span class="tag">,</span><span class="tag"> </span><span class="tag">F</span><span class="tag">a</span><span class="tag">s</span><span class="tag">t</span><span class="tag">e</span><span class="tag">r</span><span class="tag"> </span><span class="tag">R</span><span class="tag">-</span><span class="tag">C</span><span class="tag">N</span><span class="tag">N</span><span class="tag">,</span><span class="tag"> </span><span class="tag">M</span><span class="tag">e</span><span class="tag">d</span><span class="tag">i</span><span class="tag">c</span><span class="tag">a</span><span class="tag">l</span><span class="tag"> </span><span class="tag">A</span><span class="tag">I</span><span class="tag">,</span><span class="tag"> </span><span class="tag">A</span><span class="tag">W</span><span class="tag">S</span><span class="tag"> </span><span class="tag">S</span><span class="tag">a</span><span class="tag">g</span><span class="tag">e</span><span class="tag">M</span><span class="tag">a</span><span class="tag">k</span><span class="tag">e</span><span class="tag">r</span><span class="tag">,</span><span class="tag"> </span><span class="tag">L</span><span class="tag">I</span><span class="tag">V</span><span class="tag">E</span>
+        </div>
+        <div class="project-links">
+            <a href="https://github.com/mvanslyke-ml/ml-portfolio" class="project-link" target="_blank">📂 View Code on GitHub</a>
+            
+        </div>
+        <div class="content">
+            <h2 id="what-this-project-does">What This Project Does</h2>
+<p>This system analyzes X-ray images of upper extremities (hands, wrists, forearms) and automatically identifies whether a bone fracture is present — and if so, draws a bounding box around the fracture and classifies what type of fracture it is.</p>
+<p>Think of it as a second-opinion tool that a radiologist or ER physician could use to catch fractures that might be subtle or easy to miss under a busy workload.</p>
+<hr />
+<h2 id="the-problem">The Problem</h2>
+<p>Radiologists in busy emergency departments review hundreds of X-rays per shift. Hairline fractures and minor breaks are the most commonly missed injuries — not from lack of skill, but from volume and fatigue. An automated detection system that flags potential fractures in real time can meaningfully reduce diagnostic errors.</p>
+<hr />
+<h2 id="the-model">The Model</h2>
+<p>The model is built on <strong>Faster R-CNN with a ResNet50 FPN V2 backbone</strong> — a well-established architecture in the object detection field that was chosen for its balance of accuracy and inference speed.</p>
+<h3 id="what-that-means-in-plain-terms">What that means in plain terms:</h3>
+<ul>
+<li><strong>Faster R-CNN</strong> is a two-stage detector: it first proposes candidate regions in the image that might contain something interesting, then classifies each region. This makes it more accurate than single-shot detectors at the cost of slightly more computation.</li>
+<li><strong>ResNet50 FPN V2</strong> is a backbone network that extracts visual features at multiple scales simultaneously — good at detecting both large and small fractures in the same image.</li>
+</ul>
+<h3 id="custom-modifications">Custom modifications:</h3>
+<ul>
+<li><strong>Anchor generator tuned for fractures</strong> — the default anchor sizes are designed for everyday objects; fractures are smaller and more elongated, so anchor sizes and aspect ratios were customized specifically for X-ray anatomy.</li>
+<li><strong>Deeper RPN head</strong> — the region proposal network (the part that finds candidate fracture locations) was deepened with additional layers to give it more capacity to recognize subtle fracture patterns.</li>
+</ul>
+<hr />
+<h2 id="training-approach">Training Approach</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Choice</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Training strategy</td>
+<td>5-fold cross validation</td>
+<td>Ensures no single lucky train/test split inflates results</td>
+</tr>
+<tr>
+<td>Weight averaging</td>
+<td>Exponential Moving Average (EMA)</td>
+<td>Smooths training noise; final weights generalize better than the last epoch alone</td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>Mixed precision (FP16 + FP32)</td>
+<td>~2× faster training without loss of model quality</td>
+</tr>
+<tr>
+<td>Learning rate</td>
+<td>Cosine schedule with warmup</td>
+<td>Avoids early instability; anneals smoothly to convergence</td>
+</tr>
+<tr>
+<td>Class balancing</td>
+<td>Weighted random sampler</td>
+<td>Fracture images are rarer than healthy ones; prevents the model from defaulting to "no fracture"</td>
+</tr>
+<tr>
+<td>Augmentation</td>
+<td>Contrast, sharpness, flip, rotation, color jitter</td>
+<td>Simulates real-world variation in X-ray exposure and positioning</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td>4 images</td>
+<td>Constrained by GPU VRAM; compensated by gradient accumulation</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="results">Results</h2>
+<p>Evaluated using <strong>mAP@0.5:0.95</strong> (mean Average Precision at IoU thresholds from 0.5 to 0.95, the COCO standard). This is a strict metric — a prediction only counts if the bounding box overlaps the ground truth by at least 50–95%.</p>
+<h3 id="5-fold-cross-validation">5-Fold Cross-Validation</h3>
+<table>
+<thead>
+<tr>
+<th>Fold</th>
+<th>Best mAP@0.5:0.95</th>
+<th>Best Epoch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0.6066</td>
+<td>24</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0.5747</td>
+<td>25</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0.5762</td>
+<td>~23</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0.6076</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0.5656</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Mean</strong></td>
+<td><strong>0.5861 ± 0.018</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Each fold trained for <strong>25 epochs</strong> on ~3,318 images and validated on ~830 images. Training ran on a Kaggle GPU (NVIDIA T4) with approximately 4.5 hours per fold.</p>
+<h3 id="learning-curve-fold-1">Learning Curve (Fold 1)</h3>
+<p>Loss fell steadily from 0.286 at epoch 1 to 0.039 at epoch 25. mAP improved from 0.115 to a peak of <strong>0.6066</strong> at epoch 24, with no sign of overfitting (validation mAP continued trending upward through the final epochs).</p>
+<h3 id="final-model">Final Model</h3>
+<p>After cross-validation, a final model was trained on all <strong>4,148 training images</strong> for 25 epochs. Final epoch loss: <strong>0.0396</strong>. This is the model that is deployed in the live demo.</p>
+<hr />
+<h2 id="fracture-categories">Fracture Categories</h2>
+<p>The model classifies detections into <strong>7 fracture types</strong> based on anatomical location and fracture pattern (background is handled internally by the detector and not counted as a class). Categories span common upper extremity fracture patterns seen in emergency imaging.</p>
+<hr />
+<h2 id="live-demo">Live Demo</h2>
+<p>The demo is powered by a serverless AWS SageMaker endpoint — meaning there is no server running idle between requests. When you submit an X-ray:</p>
+<ol>
+<li>Your image is sent to an AWS Lambda function in your browser</li>
+<li>Lambda forwards it to the SageMaker endpoint, which loads the model on demand</li>
+<li>The model runs inference and returns bounding boxes + fracture type labels</li>
+<li>Results are displayed with confidence scores</li>
+</ol>
+<p><strong>Note on cold starts:</strong> If the endpoint hasn't been used recently, the first request takes 15–30 seconds to spin up. Subsequent requests are fast.</p>
+<hr />
+<h2 id="technical-stack">Technical Stack</h2>
+<p><strong>Model &amp; Training:</strong><br />
+- PyTorch + TorchVision<br />
+- Custom <code>AnchorGenerator</code> and <code>RPNHead</code><br />
+- Mixed precision via <code>torch.cuda.amp</code><br />
+- EMA via <code>torch.optim.swa_utils.AveragedModel</code><br />
+- 5-fold CV with <code>sklearn.model_selection.KFold</code><br />
+- Dataset: <a href="https://www.kaggle.com/datasets/bmadushanirodrigo/fracture-multi-region-x-ray-data">Fracture Multi-Region X-ray Data</a> (4,148 labeled images)</p>
+<p><strong>Infrastructure:</strong><br />
+- Model weights packaged and stored on AWS S3<br />
+- Served via AWS SageMaker Serverless Inference (scales to zero, pay-per-request)<br />
+- Browser → API Gateway → Lambda proxy → SageMaker → response</p>
+<hr />
+<h2 id="limitations-honest-caveats">Limitations &amp; Honest Caveats</h2>
+<ul>
+<li>This is a <strong>research prototype</strong>, not a clinical tool. It has not been validated against clinical ground truth at scale.</li>
+<li>Performance degrades on X-ray images with unusual positioning, heavy metal implants, or image quality outside the training distribution.</li>
+<li>The model was trained on a public dataset; a production clinical system would require training on hospital-grade, de-identified DICOM data with radiologist-verified labels.</li>
+<li>Serverless cold starts (15–30 s) make the demo unsuitable for time-sensitive clinical workflows.</li>
+</ul>
+<hr />
+<h2 id="future-work">Future Work</h2>
+<ul>
+<li>Expand anatomical coverage to lower extremities (femur, tibia, ankle)</li>
+<li>Add severity grading (displaced vs. non-displaced, comminuted)</li>
+<li>Fine-tune on external validation datasets</li>
+<li>Integrate DICOM input support for direct PACS compatibility</li>
+<li>Request SageMaker quota increase to 6,144 MB for faster cold start + inference</li>
+</ul>
+<hr />
+<p><em>This project demonstrates that modern deep learning can be deployed affordably and accessibly for medical imaging tasks — even on a personal portfolio budget, with no idle server costs.</em></p>
+        </div>
+        <div class="project-links">
+            <a href="/" class="project-link">← Back to Portfolio</a>
+        </div>
+    </div>
+</body>
+</html>

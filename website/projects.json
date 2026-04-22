@@ -1,0 +1,33 @@
+[
+  {
+    "id": "fracture-detector",
+    "title": "AI-Powered Bone Fracture Detection",
+    "date": "Apr 2026",
+    "description": "This system analyzes X-ray images of upper extremities (hands, wrists, forearms) and automatically identifies whether a bone fracture is present — and if so, draws a bounding box around the fracture a",
+    "category": [
+      "ml",
+      "cv",
+      "deploy"
+    ],
+    "tags": [
+      "Deep Learning",
+      "Computer Vision",
+      "PyTorch",
+      "Faster R-CNN",
+      "Medical AI",
+      "AWS SageMaker",
+      "LIVE"
+    ],
+    "blog_url": "/blog/fracture-detector.html",
+    "metrics": {
+      "mAP@0.5:0.95": "0.5861 (5-fold CV mean)",
+      "Architecture": "Faster R-CNN",
+      "Backbone": "ResNet50 FPN V2",
+      "Classes": "7 Fracture Types",
+      "Training Images": "4,148 X-rays",
+      "Deployment": "AWS SageMaker Serverless"
+    },
+    "github": "https://github.com/mvanslyke-ml/ml-portfolio",
+    "article": "https://mvanslyke-ml.com/blog/bone-fracture-detection"
+  }
+]

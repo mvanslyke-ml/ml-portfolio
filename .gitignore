@@ -7,6 +7,10 @@ bucket-policy.json
 cloudfront-*.json
 cert*.json
 *.bak
+*.zip
+*.tar.gz
+artifact_hash.txt
+
 projects/data/*
 projects/data/bone_fracture_detection_v4-v4_yolov8/test/images/*
 projects/data/bone_fracture_detection_v4-v4_yolov8/test/labels/*
