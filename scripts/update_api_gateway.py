@@ -80,7 +80,7 @@ def get_or_create_api():
             Name=API_NAME,
             ProtocolType='HTTP',
             CorsConfiguration={
-                'AllowOrigins': ['https://mvanslyke-ml.com', 'http://localhost:8000', 'http://localhost:5000'],
+                'AllowOrigins': ['https://mvanslyke-ml.com', 'https://www.mvanslyke-ml.com', 'http://localhost:8000', 'http://localhost:5000'],
                 'AllowMethods': ['GET', 'POST', 'OPTIONS'],
                 'AllowHeaders': ['Content-Type', 'Authorization'],
                 'MaxAge': 300

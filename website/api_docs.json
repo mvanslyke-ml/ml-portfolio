@@ -1,0 +1,24 @@
+{
+  "api_endpoint": "https://api.mvanslyke-ml.com",
+  "endpoints": [
+    {
+      "path": "/fracture-detector",
+      "method": "POST",
+      "url": "https://api.mvanslyke-ml.com/fracture-detector",
+      "description": "AI-powered bone fracture detection (Faster R-CNN, ResNet50 FPN V2). Proxies image uploads to a SageMaker Serverless endpoint.",
+      "example_request": {
+        "image": "<base64-encoded JPEG/PNG bytes>",
+        "filename": "xray.jpg"
+      },
+      "example_response": {
+        "predictions": [
+          {
+            "label": "fracture_type_3",
+            "score": 0.91,
+            "box": [124.5, 88.1, 240.0, 192.4]
+          }
+        ]
+      }
+    }
+  ]
+}

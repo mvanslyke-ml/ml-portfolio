@@ -278,29 +278,87 @@ async function runDemo() {
         output.innerHTML = '<div class="loading"></div> Running inference...';
         
         try {
-            // Convert image to base64
             const reader = new FileReader();
             reader.onload = async function(e) {
-                const base64Image = e.target.result.split(',')[1];
-                
-                // Call Lambda with image
+                const dataUrl = e.target.result;
+                const base64Image = dataUrl.split(',')[1];
+
                 const response = await fetch(currentDemoUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        image: base64Image,
-                        filename: file.name
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: base64Image, filename: file.name })
                 });
-                
+
                 const result = await response.json();
-                output.textContent = JSON.stringify(result, null, 2);
+
+                if (!response.ok) {
+                    output.textContent = `Error ${response.status}: ${result.error || JSON.stringify(result, null, 2)}`;
+                    return;
+                }
+
+                const predictions = result.predictions || [];
+
+                // Draw image + bounding boxes on a canvas
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth;
+                    canvas.height = img.naturalHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    const SCORE_THRESHOLD = 0.3;
+                    const colors = ['#00d9ff', '#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf', '#ffb3ba', '#b8a9ff'];
+                    let colorIdx = 0;
+
+                    const kept = predictions.filter(p => (p.score ?? 1) >= SCORE_THRESHOLD);
+
+                    kept.forEach(pred => {
+                        const [x1, y1, x2, y2] = pred.box || pred.bbox || [0,0,0,0];
+                        const label = pred.label || pred.class || 'fracture';
+                        const score = pred.score != null ? (pred.score * 100).toFixed(1) + '%' : '';
+                        const color = colors[colorIdx % colors.length];
+                        colorIdx++;
+
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = Math.max(2, img.naturalWidth / 300);
+                        ctx.strokeRect(x1, y1, x2 - x1, y2 - y1);
+
+                        const fontSize = Math.max(12, img.naturalWidth / 50);
+                        ctx.font = `bold ${fontSize}px "JetBrains Mono", monospace`;
+                        const text = score ? `${label} ${score}` : label;
+                        const textW = ctx.measureText(text).width + 8;
+
+                        ctx.fillStyle = color;
+                        ctx.fillRect(x1, y1 - fontSize - 6, textW, fontSize + 6);
+                        ctx.fillStyle = '#000';
+                        ctx.fillText(text, x1 + 4, y1 - 4);
+                    });
+
+                    // Replace preview with annotated canvas
+                    document.getElementById('imagePreview').innerHTML = '';
+                    canvas.style.cssText = 'max-width:100%;border:1px solid var(--border);border-radius:4px;';
+                    document.getElementById('imagePreview').appendChild(canvas);
+
+                    // Summarise detections as text below
+                    if (kept.length === 0) {
+                        output.textContent = predictions.length === 0
+                            ? 'No fractures detected (model returned no predictions).'
+                            : `No detections above ${SCORE_THRESHOLD * 100}% confidence threshold.`;
+                    } else {
+                        const lines = kept.map((p, i) => {
+                            const label = p.label || p.class || 'fracture';
+                            const score = p.score != null ? ` — ${(p.score * 100).toFixed(1)}% confidence` : '';
+                            return `[${i+1}] ${label}${score}`;
+                        });
+                        output.textContent = `${kept.length} detection(s):\n\n` + lines.join('\n');
+                    }
+                };
+                img.src = dataUrl;
             };
             reader.readAsDataURL(file);
         } catch (error) {
-            output.textContent = `Error: ${error.message}\n\nNote: Make sure your AWS Lambda endpoint is configured and accessible.`;
+            output.textContent = `Error: ${error.message}`;
         }
     } else {
         // Handle text input
