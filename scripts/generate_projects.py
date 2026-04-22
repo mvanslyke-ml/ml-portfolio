@@ -241,6 +241,11 @@ def markdown_to_project(md_file):
     metrics = frontmatter.get('metrics', extract_metrics_from_markdown(body))
     
     blog_url = create_blog_post(md_file, project_id, frontmatter, body)
+
+    # Render markdown body to HTML and embed in projects.json so the site
+    # can display blog content in a modal without a separate page navigation.
+    md_inline = markdown.Markdown(extensions=['fenced_code', 'tables', 'nl2br', 'sane_lists'])
+    blog_content_html = md_inline.convert(body)
     
     # Check for Lambda function — demo_url discovery order:
     # 1. Explicit demo_url in frontmatter
@@ -291,7 +296,8 @@ def markdown_to_project(md_file):
         'description': description,
         'category': categories,
         'tags': tags,
-        'blog_url': blog_url
+        'blog_url': blog_url,
+        'blog_content_html': blog_content_html
     }
     
     if metrics:

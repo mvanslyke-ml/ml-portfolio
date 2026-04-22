@@ -64,11 +64,15 @@ function createParticles() {
     }
 }
 
+// Module-level projects store so modal functions can look up by ID
+let _allProjects = [];
+
 // Load projects from JSON file
 async function loadProjects() {
     try {
         const response = await fetch('projects.json');
         const projects = await response.json();
+        _allProjects = projects;
         renderProjects(projects);
         setupFilters(projects);
     } catch (error) {
@@ -130,7 +134,7 @@ function renderProjects(projects, filter = 'all') {
             ` : ''}
             
             <div class="project-links">
-                ${project.blog_url ? `<a href="${project.blog_url}" class="project-link">Read More</a>` : ''}
+                ${project.blog_content_html ? `<a href="#" class="project-link" onclick="openBlogModal('${project.id}'); return false;">Read More</a>` : ''}
                 ${project.github ? `<a href="${project.github}" class="project-link" target="_blank">Code</a>` : ''}
                 ${project.demo_url ? `
                     <a href="#" class="project-link demo" onclick="openDemo('${project.id}', '${escapeQuotes(project.title)}', '${escapeQuotes(project.demo_description || '')}', '${project.demo_url}', ${project.category.includes('cv')}); return false;">
@@ -160,7 +164,39 @@ function setupFilters(projects) {
     });
 }
 
-// Modal functions
+// Blog modal
+function openBlogModal(projectId) {
+    const project = _allProjects.find(p => p.id === projectId);
+    if (!project) return;
+
+    document.getElementById('blogModalTitle').textContent = project.title;
+    document.getElementById('blogModalMeta').textContent =
+        project.date + (project.category && project.category.length ? '  ·  ' + project.category.join(', ') : '');
+    document.getElementById('blogModalTags').innerHTML = (project.tags || []).map(tag =>
+        `<span class="tag">${tag}</span>`
+    ).join('');
+    document.getElementById('blogModalContent').innerHTML = project.blog_content_html || '';
+
+    const links = [];
+    if (project.github) {
+        links.push(`<a href="${project.github}" class="project-link" target="_blank">View Code on GitHub</a>`);
+    }
+    if (project.demo_url) {
+        const isCV = (project.category || []).includes('cv');
+        links.push(`<a href="#" class="project-link demo" onclick="closeBlogModal(); openDemo('${project.id}', '${escapeQuotes(project.title)}', '${escapeQuotes(project.demo_description || '')}', '${project.demo_url}', ${isCV}); return false;">Try Live Demo</a>`);
+    }
+    document.getElementById('blogModalLinks').innerHTML = links.join('');
+
+    document.getElementById('blogModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBlogModal() {
+    document.getElementById('blogModal').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Demo modal
 let currentDemoUrl = '';
 let currentIsCV = false;
 
@@ -294,16 +330,20 @@ async function runDemo() {
     }
 }
 
-// Close modal on outside click
+// Close modals on outside click or Escape key
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('demoModal');
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-    }
+    document.getElementById('demoModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+    document.getElementById('blogModal')?.addEventListener('click', function(e) {
+        if (e.target === this) closeBlogModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeBlogModal();
+            closeModal();
+        }
+    });
 });
 
 // Initialize

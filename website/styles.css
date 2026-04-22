@@ -815,3 +815,154 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ── Blog Modal ─────────────────────────────────────────── */
+.modal-content--blog {
+    max-width: 860px;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-modal-body {
+    overflow-y: auto;
+    max-height: calc(90vh - 140px);
+}
+
+.blog-modal-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+}
+
+.blog-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+}
+
+.blog-modal-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Rendered markdown inside the blog modal ── */
+.blog-modal-content h1,
+.blog-modal-content h2,
+.blog-modal-content h3,
+.blog-modal-content h4 {
+    color: var(--accent);
+    margin: 1.6rem 0 0.6rem;
+    font-family: 'Sora', sans-serif;
+}
+
+.blog-modal-content h1 { font-size: 1.6rem; }
+.blog-modal-content h2 { font-size: 1.3rem; }
+.blog-modal-content h3 { font-size: 1.1rem; }
+
+.blog-modal-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.blog-modal-content ul,
+.blog-modal-content ol {
+    color: var(--text-secondary);
+    padding-left: 1.4rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.blog-modal-content li {
+    margin-bottom: 0.3rem;
+}
+
+.blog-modal-content code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--code-bg);
+    color: var(--accent);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+}
+
+.blog-modal-content pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem;
+    overflow-x: auto;
+    margin: 1.25rem 0;
+}
+
+.blog-modal-content pre code {
+    background: none;
+    padding: 0;
+    color: var(--text);
+    font-size: 0.85rem;
+}
+
+.blog-modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+}
+
+.blog-modal-content th {
+    background: rgba(0, 217, 255, 0.08);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.blog-modal-content td {
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+.blog-modal-content tr:hover td {
+    background: rgba(0, 217, 255, 0.04);
+}
+
+.blog-modal-content blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.blog-modal-content a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.blog-modal-content a:hover {
+    text-decoration: underline;
+}
+
+.blog-modal-content strong {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.blog-modal-content hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+}
