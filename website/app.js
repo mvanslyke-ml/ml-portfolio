@@ -16,7 +16,16 @@ function createMatrixRain() {
         drops = new Array(columns).fill(0).map(() => Math.random() * -50);
     }
 
-    function draw() {
+    const FRAME_MS = 55;
+    let lastFrame = 0;
+
+    function draw(ts) {
+        requestAnimationFrame(draw);
+
+        // Skip frames so we only update every FRAME_MS ms
+        if (ts - lastFrame < FRAME_MS) return;
+        lastFrame = ts;
+
         // Dark overlay — higher alpha = shorter, softer trails
         ctx.fillStyle = 'rgba(10, 10, 15, 0.18)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -28,11 +37,11 @@ function createMatrixRain() {
             const x = i * fontSize;
             const y = drops[i] * fontSize;
 
-            // Leading character — dimmed slightly
+            // Leading character
             ctx.fillStyle = '#4db8cc';
             ctx.fillText(char, x, y);
 
-            // Trailing accent one row up — even dimmer
+            // Trailing accent one row up
             ctx.fillStyle = '#2a8fa3';
             ctx.fillText(char, x, y - fontSize);
 
@@ -46,7 +55,7 @@ function createMatrixRain() {
 
     resize();
     window.addEventListener('resize', resize);
-    setInterval(draw, 55);
+    requestAnimationFrame(draw);
 }
 
 // Create floating particles
@@ -295,7 +304,7 @@ async function runDemo() {
                             const cv = document.createElement('canvas');
                             cv.width = w; cv.height = h;
                             cv.getContext('2d').drawImage(img, 0, 0, w, h);
-                            resolve(cv.toDataURL('image/jpeg', 0.88).split(',')[1]);
+                            resolve(cv.toDataURL('image/png').split(',')[1]);
                         };
                         img.src = dataUrl;
                     });
@@ -307,7 +316,7 @@ async function runDemo() {
                         const resp = await fetch(currentDemoUrl, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ image: base64Image, filename: file.name })
+                            body: JSON.stringify({ image: base64Image, filename: file.name, format: 'png' })
                         });
                         return { resp, networkErr: null };
                     } catch (networkErr) {
@@ -357,7 +366,7 @@ async function runDemo() {
                 }
 
                 if (!response.ok) {
-                    output.textContent = `Error ${response.status}: ${result.error || JSON.stringify(result, null, 2)}`;
+                    output.textContent = `Error ${response.status}: ${result.error || ''}\n\n${result.detail || JSON.stringify(result, null, 2)}`;
                     return;
                 }
 
