@@ -275,21 +275,86 @@ async function runDemo() {
             return;
         }
         
-        output.innerHTML = '<div class="loading"></div> Running inference...';
+        output.innerHTML = '<div class="loading"></div> Running inference… (first run may take ~30s while the model warms up)';
         
         try {
             const reader = new FileReader();
             reader.onload = async function(e) {
-                const dataUrl = e.target.result;
-                const base64Image = dataUrl.split(',')[1];
+                // ── Resize client-side to max 1024px to keep payload small ──
+                const base64Image = await (function resizeImage(dataUrl) {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.onload = function() {
+                            const MAX = 1024;
+                            let { naturalWidth: w, naturalHeight: h } = img;
+                            if (w > MAX || h > MAX) {
+                                const scale = Math.min(MAX / w, MAX / h);
+                                w = Math.round(w * scale);
+                                h = Math.round(h * scale);
+                            }
+                            const cv = document.createElement('canvas');
+                            cv.width = w; cv.height = h;
+                            cv.getContext('2d').drawImage(img, 0, 0, w, h);
+                            resolve(cv.toDataURL('image/jpeg', 0.88).split(',')[1]);
+                        };
+                        img.src = dataUrl;
+                    });
+                })(e.target.result);
 
-                const response = await fetch(currentDemoUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ image: base64Image, filename: file.name })
-                });
+                // ── POST with one automatic retry on cold-start 500 ──────────
+                async function callApi() {
+                    try {
+                        const resp = await fetch(currentDemoUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ image: base64Image, filename: file.name })
+                        });
+                        return { resp, networkErr: null };
+                    } catch (networkErr) {
+                        return { resp: null, networkErr };
+                    }
+                }
 
-                const result = await response.json();
+                let { resp: response, networkErr } = await callApi();
+
+                if (networkErr) {
+                    output.textContent = [
+                        `Network error — the request never reached the server.`,
+                        ``,
+                        `Endpoint: ${currentDemoUrl}`,
+                        `Error: ${networkErr.message}`,
+                        ``,
+                        `Most likely causes:`,
+                        `  • CORS preflight blocked (check browser DevTools → Network tab)`,
+                        `  • api.mvanslyke-ml.com DNS or custom domain not yet propagated`,
+                        ``,
+                        `To test: curl -X POST ${currentDemoUrl} -H "Content-Type: application/json" -d '{}'`
+                    ].join('\n');
+                    return;
+                }
+
+                // On a cold-start timeout the endpoint returns generic 500 with no
+                // Lambda body. Detect that and retry once — warm SageMaker is fast.
+                let result;
+                try { result = await response.json(); } catch { result = {}; }
+
+                const isColdStartTimeout = (
+                    !response.ok &&
+                    (response.status === 500 || response.status === 504) &&
+                    (result.message === 'Internal Server Error' || !result.error)
+                );
+
+                if (isColdStartTimeout) {
+                    output.innerHTML = '<div class="loading"></div> Model is warming up — retrying automatically…';
+                    await new Promise(r => setTimeout(r, 2000));
+                    const retry = await callApi();
+                    if (retry.networkErr) {
+                        output.textContent = `Network error on retry: ${retry.networkErr.message}`;
+                        return;
+                    }
+                    response = retry.resp;
+                    try { result = await response.json(); } catch { result = {}; }
+                }
 
                 if (!response.ok) {
                     output.textContent = `Error ${response.status}: ${result.error || JSON.stringify(result, null, 2)}`;

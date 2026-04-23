@@ -20,6 +20,17 @@ API_NAME = 'ML-Portfolio-API'
 BUILD_DIR = Path('.build')
 FUNCTION_PREFIX = 'ml-portfolio-'
 
+CORS_CONFIG = {
+    'AllowOrigins': [
+        'https://mvanslyke-ml.com',
+        'https://www.mvanslyke-ml.com',
+        'http://localhost:8000',
+        'http://localhost:5000',
+    ],
+    'AllowMethods': ['GET', 'POST', 'OPTIONS'],
+    'AllowHeaders': ['Content-Type', 'Authorization'],
+    'MaxAge': 300,
+}
 
 # ---------------------------------------------------------------------------
 # Fallback: discover already-deployed functions directly from AWS
@@ -63,14 +74,29 @@ def discover_deployed_functions():
 # API Gateway helpers
 # ---------------------------------------------------------------------------
 
+def _ensure_cors(api_id):
+    """Always apply the canonical CORS config to the API (create or update)."""
+    try:
+        apigateway_client.update_api(
+            ApiId=api_id,
+            CorsConfiguration=CORS_CONFIG,
+        )
+        print(f"   ✅ CORS config applied to {api_id}")
+    except Exception as e:
+        print(f"   ⚠️  Could not update CORS: {e}")
+
+
 def get_or_create_api():
-    """Get existing API or create a new one."""
+    """Get existing API (and refresh its CORS) or create a new one."""
     try:
         response = apigateway_client.get_apis()
         for api in response.get('Items', []):
             if api['Name'] == API_NAME:
-                print(f"✅ Found existing API: {api['ApiId']} ({api['ApiEndpoint']})")
-                return api['ApiId'], api['ApiEndpoint']
+                api_id = api['ApiId']
+                api_endpoint = api['ApiEndpoint']
+                print(f"✅ Found existing API: {api_id} ({api_endpoint})")
+                _ensure_cors(api_id)   # always refresh CORS on existing APIs
+                return api_id, api_endpoint
     except Exception as e:
         print(f"Error listing APIs: {e}")
 
@@ -120,6 +146,41 @@ def get_existing_routes(api_id):
         return {}
 
 
+def _grant_apigateway_invoke_permission(api_id, function_arn, function_name):
+    """
+    Add a resource-based policy to Lambda so API Gateway can invoke it.
+    Uses a deterministic statement ID so re-runs are idempotent.
+    """
+    session = boto3.session.Session()
+    region = session.region_name or 'us-east-1'
+    account_id = function_arn.split(':')[4]
+    source_arn = f"arn:aws:execute-api:{region}:{account_id}:{api_id}/*/*"
+    statement_id = f"apigateway-invoke-{api_id}"
+
+    # Try to remove a stale statement first (ignore error if absent)
+    try:
+        lambda_client.remove_permission(
+            FunctionName=function_arn,
+            StatementId=statement_id,
+        )
+    except lambda_client.exceptions.ResourceNotFoundException:
+        pass
+    except Exception:
+        pass
+
+    try:
+        lambda_client.add_permission(
+            FunctionName=function_arn,
+            StatementId=statement_id,
+            Action='lambda:InvokeFunction',
+            Principal='apigateway.amazonaws.com',
+            SourceArn=source_arn,
+        )
+        print(f"   ✅ Lambda invoke permission granted for {function_name}")
+    except Exception as e:
+        print(f"   ⚠️  Could not set Lambda invoke permission: {e}")
+
+
 def create_lambda_integration(api_id, function_arn, function_name):
     """Create or return existing integration between API Gateway and Lambda."""
     existing_integrations = get_existing_integrations(api_id)
@@ -130,6 +191,9 @@ def create_lambda_integration(api_id, function_arn, function_name):
         f"arn:aws:apigateway:{region}:lambda:path/2015-03-31"
         f"/functions/{function_arn}/invocations"
     )
+
+    # Always ensure API Gateway can invoke this function
+    _grant_apigateway_invoke_permission(api_id, function_arn, function_name)
 
     if integration_uri in existing_integrations:
         print(f"   Integration exists: {function_name}")
